@@ -22,6 +22,7 @@ type FormHeaderProps = {
   setConfirmModalLink: React.Dispatch<SetStateAction<string>>;
   publicButtonTitle?: string;
   has_draft_button?: boolean;
+  has_button?: boolean;
 };
 
 export default function FormHeader({
@@ -33,6 +34,7 @@ export default function FormHeader({
   setConfirmModalLink,
   publicButtonTitle,
   has_draft_button = false,
+  has_button = true,
 }: FormHeaderProps) {
   const t = useTranslations("product.add-product");
 
@@ -92,33 +94,35 @@ export default function FormHeader({
             </span>
           </Flex>
         </Flex>
-        <Flex className="mx-auto sm:mx-0">
-          <Flex gap="middle">
-            <CancelButton
-              title="Cancel"
-              onClick={() => {
-                setOpenDialog((prev) => !prev);
-                setConfirmModalLink(
-                  breadcrumbs.length === 1
-                    ? breadcrumbs[0]?.link || "#"
-                    : breadcrumbs[breadcrumbs.length - 2]?.link || "#"
-                );
-              }}
-            />
-            {has_draft_button && (
-              <DraftButton
-                title={t("button.draft")}
-                isLoading={isLoading}
-                onClick={() => setSubmitType?.("draft")}
+        {has_button && (
+          <Flex className="mx-auto sm:mx-0">
+            <Flex gap="middle">
+              <CancelButton
+                title="Cancel"
+                onClick={() => {
+                  setOpenDialog((prev) => !prev);
+                  setConfirmModalLink(
+                    breadcrumbs.length === 1
+                      ? breadcrumbs[0]?.link || "#"
+                      : breadcrumbs[breadcrumbs.length - 2]?.link || "#"
+                  );
+                }}
               />
-            )}{" "}
-            <PublishButton
-              title={publicButtonTitle}
-              isLoading={isLoading}
-              isSubmit={true}
-            />
+              {has_draft_button && (
+                <DraftButton
+                  title={t("button.draft")}
+                  isLoading={isLoading}
+                  onClick={() => setSubmitType?.("draft")}
+                />
+              )}{" "}
+              <PublishButton
+                title={publicButtonTitle}
+                isLoading={isLoading}
+                isSubmit={true}
+              />
+            </Flex>
           </Flex>
-        </Flex>
+        )}
       </Flex>
     </Card>
   );

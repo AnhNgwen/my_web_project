@@ -1,13 +1,16 @@
 "use client";
 
+import { ProblemFormValues } from "@/services/rest/add-problem/type.t";
 import { Card } from "antd";
-import { useTranslations } from "next-intl";
+import { useFormContext } from "react-hook-form";
 import BasicInfoStep from "./BasicInfoStep";
 import StatementStep from "./StatementStep";
 import TestcaseManager from "./Testcases";
 
 export default function ReviewStep() {
-  const t = useTranslations("problem");
+  const { watch } = useFormContext<ProblemFormValues>();
+  const values = watch();
+  console.log(values);
   return (
     <div className="space-y-6">
       <h3 className="text-lg font-semibold">Review Problem</h3>
@@ -26,6 +29,7 @@ export default function ReviewStep() {
       <Card title="Test Cases" size="small">
         <TestcaseManager />
       </Card>
+      <div>{JSON.stringify(values)}</div>
     </div>
   );
 }

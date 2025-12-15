@@ -177,3 +177,84 @@ export const difficultyOptions = [
   { label: "Medium", value: "MEDIUM" },
   { label: "Hard", value: "HARD" },
 ];
+
+// mockData.ts
+export interface Problem {
+  key: string;
+  title: string;
+  code: string;
+  level: "Dễ" | "Trung bình" | "Khó";
+  isPublic: boolean;
+  maxScore: number;
+}
+
+export const mockExercises: Problem[] = [
+  {
+    key: "1",
+    title: "Analyze Code Submission of a Programming Contest",
+    code: "P__Analyze Code Submission of a Programming Contest",
+    level: "Trung bình",
+    isPublic: true,
+    maxScore: 100,
+  },
+  {
+    key: "2",
+    title: "Analyze orders raised over times",
+    code: "P__Analyze orders raised over times",
+    level: "Trung bình",
+    isPublic: false,
+    maxScore: 100,
+  },
+  {
+    key: "3",
+    title: "Bank Transaction",
+    code: "P__Bank Transaction",
+    level: "Trung bình",
+    isPublic: true,
+    maxScore: 250,
+  },
+  {
+    key: "4",
+    title: "Binary sequence generation",
+    code: "P__Binary sequence generation",
+    level: "Dễ",
+    isPublic: true,
+    maxScore: 100,
+  },
+  {
+    key: "5",
+    title: "Bounding rectangle",
+    code: "P__Bounding rectangle",
+    level: "Trung bình",
+    isPublic: false,
+    maxScore: 100,
+  },
+];
+
+export const mockExercisesAllOn = mockExercises.map((item) => ({
+  ...item,
+  isPublic: true,
+}));
+
+export const mockExercisesAllOff = mockExercises.map((item) => ({
+  ...item,
+  isPublic: false,
+}));
+
+export const problem = {
+  title: "problem title",
+  difficulty: "EASY",
+  tags: ["tag", "tag123"],
+  visibility: true,
+  timeLimit: 1000,
+  memoryLimit: 256,
+  description: "",
+  samples: [
+    { input: "Sample input ", output: "Sample output" },
+    { input: "input 2 345", output: "output 12345+" },
+  ],
+  testCases: [
+    { input: "test case 1", output: "test case 2", score: 121 },
+    { input: "input test case 2", output: "out put test case 2", score: 111 },
+  ],
+};

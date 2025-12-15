@@ -10,7 +10,7 @@ export default function StatementStep() {
   return (
     <div className="space-y-4">
       <RHFTextArea
-        name="statement"
+        name="description"
         rows={8}
         placeholder="Markdown + LaTeX supported"
         label="Description:"
