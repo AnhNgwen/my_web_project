@@ -1,0 +1,142 @@
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "loading": "Loading...",
+    "noData": "No data",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "dashboard": "Dashboard"
+  },
+  "login": {
+    "title": "Please login to continue working",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "Enter your login email",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember password",
+    "forgotPasswordLink": "Forgot password?",
+    "loginButton": "Login",
+    "loginSuccess": "Login successful! Welcome {company}",
+    "loginError": "Email or password is incorrect!",
+    "generalError": "An error occurred. Please try again!",
+    "validation": {
+      "emailRequired": "Please enter your email!",
+      "emailInvalid": "Invalid email!",
+      "passwordRequired": "Please enter your password!"
+    },
+    "forgotPassword": {
+      "title": "Password Recovery",
+      "subtitle": "Please enter your Email or Phone number to receive verification code (OTP)",
+      "emailOrPhone": "Email or Phone number",
+      "emailOrPhonePlaceholder": "Enter email or phone number",
+      "sendOtpButton": "Get OTP code",
+      "backToLogin": "Back to login",
+      "validation": {
+        "emailOrPhoneRequired": "Please enter email or phone number!",
+        "emailInvalid": "Invalid email!"
+      }
+    },
+    "otpVerification": {
+      "title": "Enter Verification Code",
+      "subtitle": "OTP code has been sent to",
+      "subtitleEmail": ". Please enter the code to continue.",
+      "otpLabel": "OTP Code (6 digits)",
+      "resendText": "Haven't received the code? ",
+      "resendLink": "Resend OTP",
+      "resendTimer": "Resend in {seconds}s",
+      "verifyButton": "Verify",
+      "verifyingButton": "Verifying...",
+      "backLink": "Go back"
+    },
+    "newPassword": {
+      "title": "Set New Password",
+      "subtitle": "Set your new password",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Re-enter new password",
+      "passwordMismatch": "Passwords do not match",
+      "requirementsTitle": "Password requirements:",
+      "requirements": {
+        "length": "Minimum 8 characters",
+        "uppercase": "At least 1 uppercase and 1 lowercase letter (a - Z)",
+        "special": "At least 1 number and 1 special character (0-9, @$%...)"
+      },
+      "completeButton": "Complete",
+      "updatingButton": "Updating...",
+      "backToLogin": "Login"
+    },
+    "success": {
+      "title": "Password updated successfully!",
+      "message": "Your new password has been updated successfully. You can use this password to login now.",
+      "loginNowButton": "Login now",
+      "countdownText": "Will automatically return in {seconds} seconds..."
+    },
+    "accountList": {
+      "title": "Demo accounts ({count} companies)",
+      "testAccountsTitle": "Test account list",
+      "showPassword": "Show passwords",
+      "hidePassword": "Hide passwords",
+      "clickToFill": "💡 Click on any account to automatically fill login information"
+    }
+  },
+  "message": {
+    "loading": "Loading page, please wait...",
+    "loadingAdmin": "Loading admin page..."
+  },
+  "sidebar": {
+    "home": "Home",
+    "programmingContests": "Programming Contests",
+    "learning": "Learning",
+    "classRegistration": "Class Registration",
+    "classes": "Classes",
+    "joinQuizTest": "Join Quiz Test",
+    "quizTests": "Quiz Tests"
+  },
+  "header": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "greeting": "Hello, {name}",
+    "notification1": "You have a new notification",
+    "notification2": "System has been updated",
+    "message1": "You have a new message",
+    "message2": "Feedback from customer",
+    "businessInfo": "Business Information",
+    "shopSetup": "Shop Setup",
+    "contactSupport": "Contact Support",
+    "support_center": "Support Center",
+    "become_supplier": "Become a Supplier",
+    "check_order": "Check Order"
+  },
+  "customUploadFile": {
+    "label": "Financial Report Data",
+    "select_or_drag": "Select or drag files to upload",
+    "file_hint": "Accepts CPP, JS, PY  (Max 10MB)",
+    "add_success": "Successfully added {fileName}",
+    "invalid_type": "Only CPP, JS, or PY files are allowed!",
+    "file_too_large": "File must be smaller than 10MB!"
+  },
+  "modal": {
+    "message": "Your information will not be saved, do you agree to exit?",
+    "stayButton": "Stay",
+    "exitButton": "Exit"
+  }
+}

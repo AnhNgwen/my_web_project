@@ -1,0 +1,50 @@
+// Chỉ giữ lại styles cho Ant Design components override
+// Các styles cơ bản đã được chuyển sang Tailwind CSS trong Header.tsx
+
+// Style cho Badge của Ant Design - màu đỏ
+header {
+  .custom__image {
+    width: 45px;
+    height: 45px;
+  }
+  .ant-badge {
+    .ant-badge-count {
+      background-color: #ff4d4f;
+      border: none;
+      min-width: 18px;
+      height: 18px;
+      line-height: 16px;
+      font-size: 11px;
+      box-shadow: 0 0 0 1px #fff;
+    }
+  }
+
+  // Responsive spacing cho Space component trên mobile
+  .ant-space {
+    @media (max-width: 768px) {
+      gap: 8px !important;
+    }
+  }
+}
+
+// User menu styles đã được chuyển sang Tailwind CSS trong Header.tsx
+
+// Ant Design Dropdown Menu custom
+.ant-dropdown {
+  .ant-dropdown-menu {
+    padding: 8px;
+    min-width: 200px;
+  }
+
+  .ant-dropdown-menu-item {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ant-dropdown-menu-item-icon {
+    font-size: 24px;
+    color: #2b6bb2;
+  }
+}

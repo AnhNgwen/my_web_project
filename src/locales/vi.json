@@ -1,0 +1,142 @@
+{
+  "common": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "search": "Tìm kiếm",
+    "filter": "Lọc",
+    "reset": "Đặt lại",
+    "loading": "Đang tải...",
+    "noData": "Không có dữ liệu",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "warning": "Cảnh báo",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước",
+    "close": "Đóng",
+    "dashboard": "Trang chủ"
+  },
+  "login": {
+    "title": "Vui lòng đăng nhập để làm việc",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "emailPlaceholder": "Điền email đăng nhập",
+    "passwordPlaceholder": "Điền mật khẩu",
+    "rememberMe": "Lưu mật khẩu",
+    "forgotPasswordLink": "Quên mật khẩu?",
+    "loginButton": "Đăng nhập",
+    "loginSuccess": "Đăng nhập thành công! Chào mừng {company}",
+    "loginError": "Email hoặc mật khẩu không chính xác!",
+    "generalError": "Đã có lỗi xảy ra. Vui lòng thử lại!",
+    "validation": {
+      "emailRequired": "Vui lòng nhập email!",
+      "emailInvalid": "Email không hợp lệ!",
+      "passwordRequired": "Vui lòng nhập mật khẩu!"
+    },
+    "forgotPassword": {
+      "title": "Khôi phục Mật khẩu",
+      "subtitle": "Vui lòng nhập Email hoặc Số điện thoại để nhận mã xác thực (OTP)",
+      "emailOrPhone": "Email hoặc Số điện thoại",
+      "emailOrPhonePlaceholder": "Điền email hoặc số điện thoại",
+      "sendOtpButton": "Nhận mã OTP",
+      "backToLogin": "Quay lại đăng nhập",
+      "validation": {
+        "emailOrPhoneRequired": "Vui lòng nhập email hoặc số điện thoại!",
+        "emailInvalid": "Email không hợp lệ!"
+      }
+    },
+    "otpVerification": {
+      "title": "Nhập Mã Xác Thực",
+      "subtitle": "Mã OTP đã được gửi đến",
+      "subtitleEmail": ". Vui lòng nhập mã để tiếp tục.",
+      "otpLabel": "Mã OTP (6 chữ số)",
+      "resendText": "Bạn chưa nhận được mã? ",
+      "resendLink": "Gửi lại OTP",
+      "resendTimer": "Gửi lại sau {seconds}s",
+      "verifyButton": "Xác nhận",
+      "verifyingButton": "Đang xác thực...",
+      "backLink": "Quay lại"
+    },
+    "newPassword": {
+      "title": "Đặt mật khẩu mới",
+      "subtitle": "Đặt mật khẩu mới của bạn",
+      "newPassword": "Mật khẩu Mới",
+      "newPasswordPlaceholder": "Nhập mật khẩu mới",
+      "confirmPassword": "Xác nhận Mật khẩu Mới",
+      "confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
+      "passwordMismatch": "Mật khẩu không khớp",
+      "requirementsTitle": "Yêu cầu đối với mật khẩu:",
+      "requirements": {
+        "length": "Tối thiểu 8 ký tự",
+        "uppercase": "Có 1 chữ hoa và 1 chữ thường (a - Z)",
+        "special": "Có 1 chữ số và 1 ký tự đặc biệt (0-9, @$%...)"
+      },
+      "completeButton": "Hoàn thành",
+      "updatingButton": "Đang cập nhật...",
+      "backToLogin": "Đăng nhập"
+    },
+    "success": {
+      "title": "Cập nhật mật khẩu thành công!",
+      "message": "Mật khẩu mới của bạn đã được cập nhật thành công. Bạn có thể sử dụng mật khẩu này để đăng nhập ngay bây giờ.",
+      "loginNowButton": "Đăng nhập ngay",
+      "countdownText": "Sẽ tự động quay lại sau {seconds} giây..."
+    },
+    "accountList": {
+      "title": "Tài khoản demo ({count} công ty)",
+      "testAccountsTitle": "Danh sách tài khoản test",
+      "showPassword": "Hiện mật khẩu",
+      "hidePassword": "Ẩn mật khẩu",
+      "clickToFill": "💡 Click vào bất kỳ tài khoản nào để tự động điền thông tin đăng nhập"
+    }
+  },
+  "message": {
+    "loading": "Đang tải trang, vui lòng chờ...",
+    "loadingAdmin": "Đang tải trang quản trị..."
+  },
+  "sidebar": {
+    "home": "Trang chủ",
+    "programmingContests": "Cuộc thi lập trình",
+    "learning": "Học tập",
+    "classRegistration": "Đăng ký lớp học",
+    "classes": "Lớp học",
+    "joinQuizTest": "Tham gia kiểm tra",
+    "quizTests": "Bài kiểm tra"
+  },
+  "header": {
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "greeting": "Xin chào, {name}",
+    "notification1": "Bạn có thông báo mới",
+    "notification2": "Hệ thống đã cập nhật",
+    "message1": "Bạn có tin nhắn mới",
+    "message2": "Phản hồi từ khách hàng",
+    "businessInfo": "Thông tin doanh nghiệp",
+    "shopSetup": "Thiết lập gian hàng",
+    "contactSupport": "Liên hệ hỗ trợ",
+    "support_center": "Trung tâm hỗ trợ",
+    "become_supplier": "Trở thành Nhà cung cấp",
+    "check_order": "Kiểm tra đơn hàng"
+  },
+  "customUploadFile": {
+    "label": "Dữ liệu báo cáo tài chính",
+    "select_or_drag": "Chọn tệp để tải lên hoặc kéo và thả",
+    "file_hint": "Chấp nhận CPP, JS, PY (Tối đa 10MB)",
+    "add_success": "Thêm mới {fileName} thành công",
+    "invalid_type": "Chỉ được tải lên các file CPP, JS, hoặc PY!",
+    "file_too_large": "File phải nhỏ hơn 10MB!"
+  },
+  "modal": {
+    "message": "Thông tin sẽ không được lưu, bạn có đồng ý thoát?",
+    "stayButton": "Ở lại",
+    "exitButton": "Thoát"
+  }
+}

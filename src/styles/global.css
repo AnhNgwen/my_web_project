@@ -1,0 +1,373 @@
+@tailwind utilities;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  .bg-white-gradient {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.81) 0%,
+      rgba(255, 255, 255, 0.55) 100%
+    );
+  }
+
+  .bg-primary-gradient {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-primary) 0%,
+      #2183db 100%
+    );
+  }
+  /* Typography - Quy ước class cho kiểu chữ */
+  .typo-caption-1 {
+    @apply text-[0.75rem] font-bold leading-4 tracking-normal;
+  }
+  .typo-caption-medium {
+    @apply text-[0.75rem] font-medium leading-3 tracking-[-0.005em];
+  }
+  .typo-caption-2 {
+    @apply text-[0.75rem] font-normal leading-4 tracking-normal;
+  }
+  .typo-caption-3 {
+    @apply text-[0.688rem] font-normal leading-[0.688rem] tracking-[0.07px];
+  }
+  .typo-caption-4 {
+    @apply text-[11px] font-bold leading-[0.813rem] tracking-[0.07px];
+  }
+  .typo-small-body-1 {
+    @apply text-[0.813rem] font-bold leading-4 tracking-[-0.08px];
+  }
+  .typo-small-body-2 {
+    @apply text-[0.813rem] font-normal leading-4 tracking-[-0.08px];
+  }
+  .typo-small-body-2 {
+    @apply text-[0.813rem] font-normal leading-4 tracking-[-0.08px];
+  }
+  .typo-call-out {
+    @apply text-base font-bold leading-[1.313rem] tracking-[-0.32px];
+  }
+  .typo-sub-headline-1 {
+    @apply text-[0.938rem] font-bold leading-5 tracking-[-0.24px];
+  }
+  .typo-sub-headline-2 {
+    @apply text-[0.938rem] font-normal leading-5 tracking-[-0.24px];
+  }
+  .typo-title {
+    @apply text-xl font-bold leading-7 tracking-[-0.5%];
+  }
+  .typo-title-1 {
+    @apply text-lg font-bold leading-[2.125rem] tracking-[0.36px];
+  }
+  .typo-title-2 {
+    @apply text-[1.375rem] font-bold leading-7 tracking-[0.35px];
+  }
+  .typo-title-3 {
+    @apply text-xl font-bold leading-[1.563rem] tracking-[0.38px];
+  }
+  .typo-title-medium {
+    @apply text-lg font-medium leading-6 tracking-[-0.005em];
+  }
+  .typo-tiny-medium {
+    @apply text-[10px] font-medium leading-[10px] tracking-[-0.005em];
+  }
+  .typo-headline {
+    @apply text-[1.063rem] font-bold leading-[1.375rem] tracking-[-0.41px];
+  }
+  .typo-body {
+    @apply text-[1.063rem] font-normal leading-[1.375rem] tracking-[-0.41px];
+  }
+  .typo-heading-3 {
+    @apply text-2xl tracking-tighter font-bold;
+  }
+  .typo-heading-4 {
+    @apply text-[1.25rem] tracking-[0.0036em] leading-[2.125rem] font-bold;
+  }
+  .typo-heading-4-semibold {
+    @apply text-[1.25rem] font-semibold leading-7;
+  }
+  .typo-heading-5 {
+    @apply text-xl tracking-tighter font-bold;
+  }
+  .typo-title-bold {
+    @apply text-lg leading-6 font-bold tracking-tighter;
+  }
+  .typo-title-semibold {
+    @apply text-lg leading-6 font-semibold tracking-tighter;
+  }
+  .typo-base-medium {
+    @apply text-base font-medium leading-6;
+  }
+  .typo-base-semibold {
+    @apply text-base font-semibold leading-6;
+  }
+  .typo-base-bold {
+    @apply text-base font-bold leading-6;
+  }
+  .typo-base-small-regular {
+    @apply text-[0.875rem] font-normal leading-5 tracking-[-0.0005em];
+  }
+  .typo-small-medium {
+    @apply text-[0.875rem] font-medium leading-5;
+  }
+  .typo-small-semibold {
+    @apply text-[0.875rem] font-semibold leading-5;
+  }
+  .typo-small-bold {
+    @apply text-[0.875rem] font-bold leading-5;
+  }
+  .typo-caption-regular {
+    @apply text-[0.75rem] font-normal leading-4 tracking-normal;
+  }
+  .typo-caption-medium {
+    @apply text-[0.75rem] font-medium leading-4;
+  }
+  .typo-caption-semibold {
+    @apply text-[0.75rem] font-semibold leading-4;
+  }
+  .typo-caption-bold {
+    @apply text-[0.75rem] font-bold leading-4;
+  }
+  .typo-small-bold {
+    @apply text-[0.875rem] font-bold leading-5;
+  }
+  .typo-body-regular {
+    @apply text-[0.875rem] font-medium leading-[22px];
+  }
+  .typo-body-medium {
+    @apply text-[0.875rem] font-medium leading-[22px];
+  }
+  .typo-heading-1 {
+    @apply text-[2375rem] leading-[2.875rem] font-bold tracking-tighter;
+  }
+  .typo-body-regular {
+    @apply text-[0.875rem] font-medium leading-[22px];
+  }
+  .typo-body-medium {
+    @apply text-[0.875rem] font-medium leading-[22px];
+  }
+}
+
+.filter-modal {
+  .filter-item {
+    @apply h-[52px] rounded-2xl flex items-center px-4 py-2 box-border cursor-pointer select-none justify-between hover:bg-blue-50;
+    &--active {
+      @apply border border-[#00b96b] border-solid relative bg-blue-50;
+      &::before {
+        @apply w-1 h-[22px] content-[''] block absolute left-0 top-1/2 -translate-y-1/2 bg-[#00b96b] rounded-full;
+      }
+    }
+    &--changed {
+      @apply border border-[#00b96b] border-solid relative;
+    }
+  }
+}
+
+.filter-modal {
+  .ant-modal-content {
+    @apply p-0 rounded-3xl overflow-hidden;
+  }
+  .ant-modal-close {
+    @apply top-5 right-4;
+  }
+}
+
+.Toastify {
+  .Toastify__toast-container--top-center {
+    @apply flex flex-col items-center gap-2;
+    top: 88px !important;
+  }
+}
+
+.ant-pagination {
+  @apply mt-5 flex-wrap md:flex-nowrap;
+
+  .ant-pagination-item {
+    @apply bg-white;
+  }
+
+  .ant-pagination-prev {
+    @apply bg-white;
+  }
+
+  .ant-pagination-next {
+    @apply bg-white;
+  }
+
+  .ant-pagination-options {
+    @apply grow justify-start ms-0 mt-2 flex md:justify-end md:mt-0;
+
+    .ant-select-outlined {
+      @apply max-h-8;
+
+      .ant-select-selector {
+        @apply rounded-md h-12;
+      }
+
+      .ant-select-dropdown {
+        @apply rounded-md;
+
+        .ant-select-item {
+          @apply rounded-md;
+        }
+      }
+    }
+    .ant-pagination-options-quick-jumper input {
+      @apply rounded-md;
+    }
+  }
+}
+
+.ant-tabs {
+  .ant-tabs-tab-active {
+    .ant-tabs-tab-btn {
+      @apply typo-base-bold;
+    }
+  }
+  .ant-tabs-tab-btn {
+    @apply typo-base-medium;
+  }
+}
+
+.ant-progress {
+  .ant-progress-inner {
+    @apply rounded-lg;
+  }
+  .ant-progress-bg {
+    @apply rounded-l-lg rounded-r-none;
+  }
+}
+
+.search-popconfirm {
+  .ant-popover-inner {
+    border-radius: 16px !important;
+    @apply p-4;
+  }
+  .ant-popconfirm-message {
+    @apply mb-0;
+    .ant-popconfirm-description {
+      @apply mt-0;
+    }
+  }
+  .ant-popconfirm-buttons {
+    @apply mt-0;
+  }
+}
+
+/* Font Face Declarations - SVN Gilroy */
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy.woff2") format("woff2"),
+    url("/fonts/SVN-Gilroy.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy Italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy Light Italic.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-GilroyMedium.woff2") format("woff2"),
+    url("/fonts/SVN-Gilroy Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy Medium Italic.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-GilroySemiBold.woff2") format("woff2"),
+    url("/fonts/SVN-Gilroy SemiBold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy SemiBold Italic.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-GilroyBold.woff2") format("woff2"),
+    url("/fonts/SVN-Gilroy Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SVN-Gilroy";
+  src: url("/fonts/SVN-Gilroy Bold Italic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --color-primary: #005993;
+  --font-family: "SVN-Gilroy", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-family);
+}
+
+body {
+  color: #041f34;
+  background: #f5f8fd;
+  font-family: var(--font-family);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.Toastify__toast-container {
+  z-index: 9999;
+}
