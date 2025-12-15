@@ -14,6 +14,7 @@ type Props = {
 export default function AllProblemTable({ data }: Props) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
+  console.log(pageSize);
 
   const columns: ColumnsType<Problem> = [
     {
