@@ -12,7 +12,7 @@ import { useMemo, useState } from "react";
 import { CodeEditor } from "./components/CodeEditor";
 import SubmissionTable from "./components/SubmissionTable";
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 const CODE_TEMPLATES = {
   cpp: `#include <bits/stdc++.h>
