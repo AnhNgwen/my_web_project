@@ -25,7 +25,6 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
   const [confirmModalLink, setConfirmModalLink] = useState<string>("#");
   const t = useTranslations("sidebar");
   const router = useRouter();
-  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const { submissionDetail } = useSubmissionDetail(id);
 
@@ -134,12 +133,9 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
     {
       title: "Thao tác",
       align: "center",
-      render: (record: PerTestResults) => (
+      render: () => (
         <>
-          <InfoCircleFilled
-            className="text-blue-500 text-xl cursor-pointer"
-            onClick={() => setOpenModal(true)}
-          />
+          <InfoCircleFilled className="text-blue-500 text-xl cursor-pointer" />
           {/* <ResultModal open={openModal} onClose={() => setOpenModal(false)} input={record.}/> */}
         </>
       ),
