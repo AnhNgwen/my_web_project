@@ -6,9 +6,43 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import { Input } from "antd";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+    },
+  },
+};
+
+const requirementVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.3,
+    },
+  }),
+};
 
 interface NewPasswordFormProps {
   onBackToLogin: () => void;
@@ -18,7 +52,7 @@ interface NewPasswordFormProps {
 interface PasswordRequirement {
   id: string;
   text: string;
-  validator: (pwd: string) => boolean; // pwd parameter is used in validator functions
+  validator: (pwd: string) => boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -92,8 +126,13 @@ export default function NewPasswordForm({
 
   return (
     <>
-      <div className="admin-login-header">
-        <div className="logo">
+      <motion.div
+        className="admin-login-header"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div className="logo" variants={itemVariants}>
           <Image
             src="/images/logo1.png"
             alt={"logo"}
@@ -102,13 +141,23 @@ export default function NewPasswordForm({
             className="logo-image"
             priority
           />
-        </div>
-        <h1 className="title">{t("title")}</h1>
-        <p className="subtitle">{t("subtitle")}</p>
-      </div>
+        </motion.div>
+        <motion.h1 className="title" variants={itemVariants}>
+          {t("title")}
+        </motion.h1>
+        <motion.p className="subtitle" variants={itemVariants}>
+          {t("subtitle")}
+        </motion.p>
+      </motion.div>
 
-      <form className="admin-login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <motion.form
+        className="admin-login-form"
+        onSubmit={handleSubmit}
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div className="form-group" variants={itemVariants}>
           <label htmlFor="new-password">{t("newPassword")}</label>
           <Input.Password
             id="new-password"
@@ -121,9 +170,9 @@ export default function NewPasswordForm({
             onChange={(e) => handleInputChange("password", e.target.value)}
             required
           />
-        </div>
+        </motion.div>
 
-        <div className="form-group">
+        <motion.div className="form-group" variants={itemVariants}>
           <label htmlFor="confirm-password">{t("confirmPassword")}</label>
           <Input.Password
             id="confirm-password"
@@ -140,22 +189,28 @@ export default function NewPasswordForm({
             required
           />
           {passwordsNotMatch && (
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
               style={{ color: "#ea4335", fontSize: "12px", marginTop: "4px" }}
             >
               {t("passwordMismatch")}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
 
-        <div className="password-requirements">
+        <motion.div className="password-requirements" variants={itemVariants}>
           <div className="requirements-title">{t("requirementsTitle")}</div>
-          {passwordRequirements.map((requirement) => {
+          {passwordRequirements.map((requirement, index) => {
             const isValid = getRequirementStatus(requirement);
             return (
-              <div
+              <motion.div
                 key={requirement.id}
                 className={`requirement-item ${isValid ? "valid" : "invalid"}`}
+                variants={requirementVariants}
+                custom={index}
+                initial="hidden"
+                animate="visible"
               >
                 <div
                   className={`requirement-icon ${
@@ -165,20 +220,27 @@ export default function NewPasswordForm({
                   {isValid ? "✓" : "×"}
                 </div>
                 <span>{requirement.text}</span>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={loading || !isFormValid()}
+        <motion.div variants={itemVariants}>
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={loading || !isFormValid()}
+          >
+            {loading ? t("updatingButton") : t("completeButton")}
+          </button>
+        </motion.div>
+
+        <motion.div
+          className="back-link"
+          variants={itemVariants}
+          whileHover={{ x: 5 }}
+          transition={{ duration: 0.2 }}
         >
-          {loading ? t("updatingButton") : t("completeButton")}
-        </button>
-
-        <div className="back-link">
           <a
             href="#"
             onClick={(e) => {
@@ -188,8 +250,8 @@ export default function NewPasswordForm({
           >
             {t("backToLogin")}
           </a>
-        </div>
-      </form>
+        </motion.div>
+      </motion.form>
     </>
   );
 }

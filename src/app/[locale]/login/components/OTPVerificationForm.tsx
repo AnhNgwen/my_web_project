@@ -1,8 +1,42 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+    },
+  },
+};
+
+const otpInputVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.05,
+      duration: 0.3,
+    },
+  }),
+};
 
 interface OTPVerificationFormProps {
   email: string;
@@ -95,8 +129,13 @@ export default function OTPVerificationForm({
 
   return (
     <>
-      <div className="admin-login-header">
-        <div className="logo">
+      <motion.div
+        className="admin-login-header"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div className="logo" variants={itemVariants}>
           <Image
             src="/images/logo1.png"
             alt={"logo"}
@@ -105,20 +144,28 @@ export default function OTPVerificationForm({
             className="logo-image"
             priority
           />
-        </div>
-        <h1 className="title">{t("title")}</h1>
-        <p className="subtitle">
+        </motion.div>
+        <motion.h1 className="title" variants={itemVariants}>
+          {t("title")}
+        </motion.h1>
+        <motion.p className="subtitle" variants={itemVariants}>
           {t("subtitle")} <strong>{email}</strong>
           {t("subtitleEmail")}
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
-      <form className="admin-login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
+      <motion.form
+        className="admin-login-form"
+        onSubmit={handleSubmit}
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <motion.div className="form-group" variants={itemVariants}>
           <label>{t("otpLabel")}</label>
           <div className="otp-input-container">
             {otp.map((digit, index) => (
-              <input
+              <motion.input
                 key={index}
                 ref={(el) => {
                   inputRefs.current[index] = el;
@@ -131,32 +178,46 @@ export default function OTPVerificationForm({
                 value={digit}
                 onChange={(e) => handleOTPChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
+                variants={otpInputVariants}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                whileFocus={{ scale: 1.1 }}
               />
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        <div className="otp-resend">
+        <motion.div className="otp-resend" variants={itemVariants}>
           <span>{t("resendText")}</span>
-          <span
+          <motion.span
             className={`resend-link ${!canResend ? "disabled" : ""}`}
             onClick={handleResendOTP}
+            whileHover={canResend ? { scale: 1.05 } : {}}
+            whileTap={canResend ? { scale: 0.95 } : {}}
           >
             {canResend
               ? t("resendLink")
               : t("resendTimer", { seconds: resendTimer })}
-          </span>
-        </div>
+          </motion.span>
+        </motion.div>
 
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={loading || !isOTPComplete}
+        <motion.div variants={itemVariants}>
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={loading || !isOTPComplete}
+          >
+            {loading ? t("verifyingButton") : t("verifyButton")}
+          </button>
+        </motion.div>
+
+        <motion.div
+          className="back-link"
+          variants={itemVariants}
+          whileHover={{ x: 5 }}
+          transition={{ duration: 0.2 }}
         >
-          {loading ? t("verifyingButton") : t("verifyButton")}
-        </button>
-
-        <div className="back-link">
           <a
             href="#"
             onClick={(e) => {
@@ -166,8 +227,8 @@ export default function OTPVerificationForm({
           >
             {t("backLink")}
           </a>
-        </div>
-      </form>
+        </motion.div>
+      </motion.form>
     </>
   );
 }
