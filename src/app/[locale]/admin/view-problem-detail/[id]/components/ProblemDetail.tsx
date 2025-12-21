@@ -15,7 +15,6 @@ export default function ProblemDetailPage({ id }: { id: string }) {
   const testCaseColumns = [
     { title: "Input", dataIndex: "input", key: "input" },
     { title: "Output", dataIndex: "output", key: "output" },
-    { title: "Score", dataIndex: "score", key: "score" },
   ];
   const startLoading = useLoadingStore((state) => state.startLoading);
 

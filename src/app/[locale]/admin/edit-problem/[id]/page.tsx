@@ -34,7 +34,7 @@ type ProblemDTO = {
   memoryLimit: number;
   description: string;
   samples: { input: string; output: string }[];
-  testCases: { input: string; output: string; score: number }[];
+  testCases: { input: string; output: string }[];
 };
 
 const fakeProblemFromApi: ProblemDTO = {
@@ -51,8 +51,8 @@ const fakeProblemFromApi: ProblemDTO = {
     { input: "5 7", output: "12" },
   ],
   testCases: [
-    { input: "10 20", output: "30", score: 50 },
-    { input: "100 200", output: "300", score: 50 },
+    { input: "10 20", output: "30" },
+    { input: "100 200", output: "300" },
   ],
 };
 
@@ -64,7 +64,6 @@ type SampleRow = {
 type TestCaseRow = {
   input: string;
   output: string;
-  score: number;
 };
 
 const sampleColumns: ColumnsType<SampleRow> = [
@@ -112,20 +111,6 @@ const testCaseColumns: ColumnsType<TestCaseRow> = [
         name={`testCases.${index}.output`}
         type="text"
         placeholder="Output"
-      />
-    ),
-  },
-  {
-    title: "Score",
-    dataIndex: "score",
-    key: "score",
-    align: "center",
-    width: 120,
-    render: (_: number, __: TestCaseRow, index: number) => (
-      <RHFInput
-        name={`testCases.${index}.score`}
-        type="number"
-        placeholder="Score"
       />
     ),
   },

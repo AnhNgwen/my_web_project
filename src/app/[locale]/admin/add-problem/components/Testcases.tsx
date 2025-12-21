@@ -63,7 +63,6 @@ export default function TestcaseManager() {
               append({
                 input: "",
                 expectedOutput: "",
-                score: 0,
                 orderIndex: fields.length + 1,
                 isSample: false,
               });
@@ -87,7 +86,7 @@ export default function TestcaseManager() {
           >
             <Card size="small" className="space-y-2">
               <Row gutter={[16, 16]}>
-                <Col xs={24} md={8}>
+                <Col xs={24} md={12}>
                   <RHFInput
                     name={`testCases.${i}.input`}
                     placeholder="Enter your test case input"
@@ -95,20 +94,11 @@ export default function TestcaseManager() {
                   />
                 </Col>
 
-                <Col xs={24} md={8}>
+                <Col xs={24} md={12}>
                   <RHFInput
                     name={`testCases.${i}.expectedOutput`}
                     placeholder="Enter your test case output"
                     label="Test Case  Output"
-                  />
-                </Col>
-
-                <Col xs={24} md={8}>
-                  <RHFInput
-                    name={`testCases.${i}.score`}
-                    placeholder="Enter score for this test case"
-                    label="Score"
-                    type="number"
                   />
                 </Col>
               </Row>

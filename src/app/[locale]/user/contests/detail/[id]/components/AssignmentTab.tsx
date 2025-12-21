@@ -1,7 +1,7 @@
 import useLoadingStore from "@/app/store/loadingStore";
 import RouteLoading from "@/components/shared/RouteLoading";
-import { useListActiveProblem } from "@/hook/problem/useListActiveProblem";
-import { ActiveProblem } from "@/services/rest/problem/get-all-active-problem/type";
+import { useListProblem } from "@/hook/problem/useListProblem";
+import { ActiveProblem } from "@/services/rest/problem/get-my-problem/type";
 import { SearchOutlined } from "@ant-design/icons";
 import { Card, Input, Table, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -20,7 +20,7 @@ export default function AssignmentTab() {
 
   console.log(pageSize);
 
-  const { activeProblem } = useListActiveProblem();
+  const { listProblem } = useListProblem();
 
   const exerciseTableColumns: ColumnsType<ActiveProblem> = [
     {
@@ -110,7 +110,7 @@ export default function AssignmentTab() {
     },
   ];
 
-  if (!activeProblem) return <RouteLoading />;
+  if (!listProblem) return <RouteLoading />;
 
   return (
     <Card>
@@ -127,13 +127,13 @@ export default function AssignmentTab() {
         </div>
 
         <Table
-          dataSource={activeProblem}
+          dataSource={listProblem}
           columns={exerciseTableColumns}
           className="custom__table"
           pagination={{
             current: page,
             pageSizeOptions: ["5", "10", "20", "50"],
-            total: activeProblem.length,
+            total: listProblem.length,
             showSizeChanger: true,
             onChange: (page, pageSize) => {
               setPage(page);

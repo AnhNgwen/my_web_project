@@ -83,7 +83,7 @@ export default function BasicInfoStep() {
           </motion.div>
           <motion.div variants={itemVariants}>
             <RHFSelect
-              name="difficulty"
+              name="difficultyLevel"
               label="Difficulty"
               options={difficultyOptions}
               required={true}

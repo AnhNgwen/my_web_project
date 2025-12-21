@@ -73,7 +73,6 @@ export default function StatementStep() {
               append({
                 input: "",
                 expectedOutput: "",
-                score: 0,
                 orderIndex: fields.length + 1,
                 isSample: true,
               });
@@ -127,4 +126,3 @@ export default function StatementStep() {
     </motion.div>
   );
 }
-
