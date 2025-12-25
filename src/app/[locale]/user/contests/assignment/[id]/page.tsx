@@ -125,7 +125,7 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
           {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <Tag color="green" className="px-3 py-1 rounded-full">
-              {problemDetail?.difficulty.toUpperCase()}
+              {123}
             </Tag>
           </div>
 
