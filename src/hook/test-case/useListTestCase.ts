@@ -7,6 +7,7 @@ export function useListTestCase(id: string) {
     queryFn: () => {
       return getListTestCaseForProblem(id);
     },
+    enabled: !!id,
   });
   return { listTestCase: data, isLoading: isLoading };
 }

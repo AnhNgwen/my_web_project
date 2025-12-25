@@ -1,28 +1,11 @@
-import { Testcase } from "@/services/rest/problem/get-problem-test-case/type";
+import { TestCase } from "@/services/rest/test-case/get-test-case/type";
 import { SearchOutlined } from "@ant-design/icons";
 import { Card, Input, Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useState } from "react";
 import "../../style.scss";
 
-const testcases: Testcase[] = [
-  {
-    testcaseId: 3,
-    input: "10 5",
-    expectedOutput: "15",
-    orderIndex: 1,
-    sample: false,
-  },
-  {
-    testcaseId: 4,
-    input: "3 7",
-    expectedOutput: "10",
-    orderIndex: 2,
-    sample: true,
-  },
-];
-
-export default function ListTestCase() {
+export default function ListTestCase({ testcases }: { testcases: TestCase[] }) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -32,17 +15,20 @@ export default function ListTestCase() {
   const filteredTestcases = testcases.filter(
     (tc) =>
       tc.input.toLowerCase().includes(searchValue.toLowerCase()) ||
-      tc.expectedOutput.toLowerCase().includes(searchValue.toLowerCase())
+      tc.expectedOutput
+        .toString()
+        .toLowerCase()
+        .includes(searchValue.toString().toLowerCase())
   );
 
-  const testcaseColumns: ColumnsType<Testcase> = [
+  const testcaseColumns: ColumnsType<TestCase> = [
     // ... keep your existing column configs, maybe just tweak labels if you want ...
     {
       title: "ID",
-      dataIndex: "testcaseId",
-      key: "testcaseId",
+      dataIndex: "id",
+      key: "id",
       align: "center",
-      sorter: (a, b) => a.testcaseId - b.testcaseId,
+      sorter: (a: TestCase, b: TestCase) => a.id - b.id,
     },
 
     {
@@ -72,7 +58,7 @@ export default function ListTestCase() {
         { text: "Sample", value: true },
         { text: "Testcase", value: false },
       ],
-      onFilter: (value, record) => record.sample === value,
+      onFilter: (value, record) => record.is_sample === value,
     },
   ];
 
@@ -106,7 +92,7 @@ export default function ListTestCase() {
           />
         </div>
 
-        <Table<Testcase>
+        <Table<TestCase>
           rowKey="testcaseId"
           dataSource={filteredTestcases}
           columns={testcaseColumns}

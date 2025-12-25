@@ -6,7 +6,7 @@ export async function getListProblem(): Promise<MyProblem[]> {
   //   "https://686e2031c9090c49538860be.mockapi.io/activeProblem"
   // );
   const res = await axios.get(
-    `${window.location.href}/api/problem/get-my-problem`
+    `${window.location.origin}/api/problem/get-my-problem`
   );
   return res.data;
 }

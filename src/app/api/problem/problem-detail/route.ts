@@ -1,23 +1,18 @@
-import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const jwtToken = req.cookies.get("jwtToken");
+  const { id } = await req.json();
 
   try {
-    const res = await axios.get("http://localhost:8080/problems/me", {
+    const res = await axios.get(`http://localhost:8080/problems/${id}`, {
       headers: {
         Authorization: `Bearer ${jwtToken?.value}`,
       },
     });
 
-    res.data = !res.data ? [] : Array.isArray(res.data) ? res.data : [res.data];
-
-    const data = res.data.map((item: MyProblem) => ({
-      ...item,
-      maxScore: 100,
-    }));
+    const data = { ...res.data, maxScore: 100 };
 
     return NextResponse.json(data, { status: 200 });
   } catch (error) {

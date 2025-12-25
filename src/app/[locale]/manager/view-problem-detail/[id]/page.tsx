@@ -2,6 +2,9 @@
 import useLoadingStore from "@/app/store/loadingStore";
 import ConfirmModal from "@/components/form/ConfirmModal";
 import FormHeader from "@/components/form/FormHeader";
+import RouteLoading from "@/components/shared/RouteLoading";
+import { useProblemDetail } from "@/hook/problem/useProblemDetail";
+import { useListTestCase } from "@/hook/test-case/useListTestCase";
 import { Tabs } from "antd";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -11,7 +14,6 @@ import ListTestCase from "./components/ListTestCase";
 import ProblemDetailPage from "./components/ProblemDetail";
 
 export default function ContestDetail({ params }: { params: { id: string } }) {
-  const { id } = params;
   const [activeTab, setActiveTab] = useState<string>("1");
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -34,6 +36,14 @@ export default function ContestDetail({ params }: { params: { id: string } }) {
     },
   ];
 
+  const { problemDetail } = useProblemDetail(params.id);
+
+  const { listTestCase } = useListTestCase(params.id);
+
+  console.log(listTestCase);
+
+  if (!problemDetail) return <RouteLoading />;
+
   return (
     <>
       <FormHeader
@@ -50,10 +60,13 @@ export default function ContestDetail({ params }: { params: { id: string } }) {
           className="custom__search__tabs"
         >
           <Tabs.TabPane key="1" tab="Product Detail">
-            <ProblemDetailPage id={id} />
+            <ProblemDetailPage
+              data={problemDetail}
+              testCases={listTestCase || []}
+            />
           </Tabs.TabPane>
           <Tabs.TabPane key="2" tab="List Test Case">
-            <ListTestCase />
+            <ListTestCase testcases={listTestCase || []} />
           </Tabs.TabPane>
         </Tabs>
       </div>

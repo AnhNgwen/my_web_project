@@ -14,7 +14,6 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import AccountList from "./AccountList";
 
 const { Title } = Typography;
 
@@ -65,7 +64,7 @@ export default function LoginForm({
     const { remember, ...payload } = values;
     console.log(remember);
     const res = await loginAccount(payload);
-    console.log(res);
+    localStorage.setItem("userName", res.username);
 
     if (!res) {
       message.error("Login failed");
@@ -93,13 +92,6 @@ export default function LoginForm({
       startLoading();
       router.push("/manager/home");
     }
-  };
-
-  const handleAccountSelect = (email: string, password: string) => {
-    form.setFieldsValue({
-      email,
-      password,
-    });
   };
 
   return (
@@ -222,8 +214,6 @@ export default function LoginForm({
           </motion.div>
         </Form>
       </motion.div>
-
-      <AccountList onAccountSelect={handleAccountSelect} />
     </>
   );
 }

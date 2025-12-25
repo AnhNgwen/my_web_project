@@ -277,7 +277,7 @@ import {
 import type { MenuProps } from "antd";
 import { Badge, Dropdown, Space } from "antd";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import useLoadingStore from "@/app/store/loadingStore";
 import { useRouter } from "next/navigation";
@@ -289,9 +289,17 @@ export default function Header() {
    * FAKE DATA (tạm thời)
    * ===================== */
 
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const value = localStorage.getItem("userName");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEmail(value);
+  }, []);
+
   const currentUser = {
-    email: "admin@student.com",
-    companyName: "Demo Student",
+    email: email,
+    currentUserName: "Demo Student",
     logo: "/images/logo.png", // hoặc URL logo
   };
 
@@ -302,17 +310,17 @@ export default function Header() {
    * COMPUTED UI DATA
    * ===================== */
 
-  const companyName = useMemo(() => {
-    const name = currentUser.companyName || "Company";
+  const currentUserName = useMemo(() => {
+    const name = currentUser.currentUserName || "Current User";
     return name.length > 20 ? name.substring(0, 20) + "..." : name;
-  }, [currentUser.companyName]);
+  }, [currentUser.currentUserName]);
 
   const startLoading = useLoadingStore((store) => store.startLoading);
 
   const router = useRouter();
 
   const getInitials = () => {
-    if (companyName) return companyName.charAt(0).toUpperCase();
+    if (currentUserName) return currentUserName.charAt(0).toUpperCase();
     if (currentUser.email) return currentUser.email.charAt(0).toUpperCase();
     return "C";
   };
@@ -359,7 +367,7 @@ export default function Header() {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={currentUser.logo}
-              alt={companyName}
+              alt={currentUserName}
               className="w-14 h-14 rounded-full object-cover border-2 border-gray-200 mb-2"
               onError={() => setLogoError(true)}
             />
@@ -369,7 +377,9 @@ export default function Header() {
             </div>
           )}
 
-          <div className="text-sm font-medium text-black">{companyName}</div>
+          <div className="text-sm font-medium text-black">
+            {currentUserName}
+          </div>
           <div className="text-xs text-gray-500">{currentUser.email}</div>
         </div>
       ),
@@ -465,7 +475,7 @@ export default function Header() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={currentUser.logo}
-                    alt={companyName}
+                    alt={currentUserName}
                     className="w-8 h-8 rounded-full object-cover border border-white/20"
                     onError={() => setLogoError(true)}
                   />
@@ -475,7 +485,7 @@ export default function Header() {
                   </div>
                 )}
                 <span className="text-white text-sm truncate max-w-[120px]">
-                  {companyName}
+                  {currentUserName}
                 </span>
                 <DownOutlined className="text-white text-xs" />
               </div>

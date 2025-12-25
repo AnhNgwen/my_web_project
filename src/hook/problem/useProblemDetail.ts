@@ -5,6 +5,7 @@ export function useProblemDetail(id: string) {
   const { data } = useQuery({
     queryKey: ["PROBLEM_DETAIL", id],
     queryFn: () => getProblemDetail(id),
+    enabled: !!id,
   });
   return { problemDetail: data };
 }

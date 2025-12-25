@@ -5,8 +5,9 @@ export async function getListTestCaseForProblem(
   id: string
 ): Promise<TestCase[]> {
   console.log(id);
-  const res = await axios.get(
-    "https://68e76d9d10e3f82fbf3f1732.mockapi.io/list-test-case"
+  const res = await axios.post(
+    `${window.location.origin}/api/test-case/get-list-test-case-per-problem-id`,
+    { id }
   );
   return res.data || null;
 }

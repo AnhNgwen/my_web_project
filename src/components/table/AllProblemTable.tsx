@@ -4,7 +4,7 @@ import useLoadingStore from "@/app/store/loadingStore";
 import PublishButton from "@/components/shared/Button/FormHeader/PublishButton";
 import { useUpdateStateProblem } from "@/hook/problem/useUpdateStateProblem";
 // ExerciseTable.tsx
-import { MyProblem } from "@/services/rest/problem/get-my-problem/type";
+import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
 import {
   MoreOutlined,
   SearchOutlined,
@@ -116,7 +116,9 @@ export default function AllProblemTable({
             label: "Xem chi tiết",
             onClick: () => {
               startLoading();
-              router.push(`${basePath}/view-problem-detail/1`);
+              router.push(
+                `${basePath}/view-problem-detail/${record.problemId}`
+              );
             },
           },
           {

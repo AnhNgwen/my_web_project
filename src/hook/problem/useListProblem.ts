@@ -1,4 +1,4 @@
-import { getListProblem } from "@/services/rest/problem/get-my-problem";
+import { getListProblem } from "@/services/rest/problem/get-my-problems";
 import { useQuery } from "@tanstack/react-query";
 
 export function useListProblem() {
