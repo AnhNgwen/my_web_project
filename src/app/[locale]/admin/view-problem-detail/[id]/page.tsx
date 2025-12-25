@@ -14,7 +14,6 @@ import ListTestCase from "./components/ListTestCase";
 import ProblemDetailPage from "./components/ProblemDetail";
 
 export default function ContestDetail({ params }: { params: { id: string } }) {
-  const { id } = params;
   const [activeTab, setActiveTab] = useState<string>("1");
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
