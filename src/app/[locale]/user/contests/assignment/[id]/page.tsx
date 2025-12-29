@@ -131,7 +131,7 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
 
           {/* Description */}
           <Title level={4}>{problemDetail?.title}</Title>
-          <ProblemStatement statement={problemDetail?.statement || ""} />
+          <ProblemStatement statement={problemDetail?.description || ""} />
 
           <Divider />
 
