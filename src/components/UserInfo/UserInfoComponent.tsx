@@ -1,4 +1,5 @@
 import useLoadingStore from "@/app/store/loadingStore";
+import { useUserInfo } from "@/hook/auth/useUserInfo";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Card, Form, Spin, Tag } from "antd";
 import { motion } from "framer-motion";
@@ -77,7 +78,16 @@ const fetchUserProfile = async (): Promise<UserProfileFormValues> => {
   });
 };
 
-export default function UserInfoComponent() {
+export default function UserInfoComponent({
+  userName,
+}: {
+  userName: string;
+}) {
+
+  const { userInfo } = useUserInfo(userName);
+
+  console.log(userInfo)
+
   const methods = useForm({
     defaultValues: {
       username: "",

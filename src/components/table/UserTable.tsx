@@ -1,0 +1,130 @@
+"use client";
+import DangerButton from "@/components/shared/Button/FormHeader/DangerButton";
+import PublishButton from "@/components/shared/Button/FormHeader/PublishButton";
+import { Input, Modal, Select } from "antd";
+import { useState } from "react";
+import CommonTable from "./CommonTable";
+
+type User = {
+  username: string;
+  role: "USER" | "ADMIN";
+};
+
+type Props = {
+  data: User[];
+};
+
+export default function UserTable({ data }: Props) {
+  const [grantModalOpen, setGrantModalOpen] = useState<boolean>(false);
+  const [revokeModalOpen, setRevokeModalOpen] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [scope, setScope] = useState<string>("global");
+  const [tag, setTag] = useState<string | null>(null);
+  const [problem, setProblem] = useState<string | null>(null);
+  const [reason, setReason] = useState<string>("");
+
+  const columns = [
+    { title: "Username", dataIndex: "username", key: "username" },
+    { title: "Role", dataIndex: "role", key: "role" },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_: unknown, record: User) => (
+        <div className="flex gap-2">
+          {record.role !== "ADMIN" ? (
+            <PublishButton
+              onClick={() => {
+                setSelectedUser(record);
+                setGrantModalOpen(true);
+              }}
+              title="Grant Admin"
+            />
+          ) : (
+            <DangerButton
+              onClick={() => {
+                setSelectedUser(record);
+                setRevokeModalOpen(true);
+              }}
+              title="Revoke Admin"
+            />
+          )}
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <>
+      <CommonTable
+        columns={columns}
+        dataSource={data}
+        rowKey="username"
+      />
+
+      {/* Grant Admin Modal */}
+      <Modal
+        title={`Grant Admin to ${selectedUser?.username ?? ""}`}
+        open={grantModalOpen}
+        onCancel={() => setGrantModalOpen(false)}
+        onOk={() => setGrantModalOpen(false)}
+        centered
+      >
+        <div className="flex flex-col gap-4">
+          <div>
+            <p className="font-medium mb-1">Scope</p>
+            <Select
+              className="w-full"
+              value={scope}
+              onChange={(v) => setScope(v)}
+              options={[
+                { label: "Toàn hệ thống", value: "global" },
+                { label: "Theo Tag", value: "tag" },
+                { label: "Theo Problem", value: "problem" },
+              ]}
+            />
+          </div>
+
+          {scope === "tag" && (
+            <Select
+              placeholder="Chọn tag"
+              className="w-full"
+              onChange={(v) => setTag(v)}
+              options={[
+                { label: "DP", value: "dp" },
+                { label: "Graph", value: "graph" },
+              ]}
+            />
+          )}
+
+          {scope === "problem" && (
+            <Select
+              placeholder="Chọn problem"
+              className="w-full"
+              onChange={(v) => setProblem(v)}
+              options={[
+                { label: "Problem 101", value: "101" },
+                { label: "Problem 202", value: "202" },
+              ]}
+            />
+          )}
+        </div>
+      </Modal>
+
+      {/* Revoke Admin Modal */}
+      <Modal
+        title={`Revoke Admin from ${selectedUser?.username ?? ""}`}
+        open={revokeModalOpen}
+        onCancel={() => setRevokeModalOpen(false)}
+        onOk={() => setRevokeModalOpen(false)}
+      >
+        <p className="font-medium mb-1">Reason</p>
+        <Input.TextArea
+          rows={3}
+          value={reason}
+          onChange={(e) => setReason(e.target.value)}
+          placeholder="Nhập lý do thu hồi quyền"
+        />
+      </Modal>
+    </>
+  );
+}

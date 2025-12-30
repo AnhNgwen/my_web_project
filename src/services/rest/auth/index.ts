@@ -27,3 +27,28 @@ export async function loginAccount(payload: LoginTypes) {
     return null;
   }
 }
+
+export async function getUserInfor(userName:string) {
+  try {
+    const res = await axios.post('/api/post',{
+      link: 'http://localhost:8080/user/username',
+      payload: userName
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Get user info API error:", error);
+    return null;
+  }
+}
+
+export async function getListUser() {
+  try {
+    const res = await axios.post('/api/get-list',{
+      link: 'http://localhost:8080/user',
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Get user info API error:", error);
+    return null;
+  }
+}

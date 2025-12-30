@@ -8,17 +8,14 @@ import { useDeleteProblem } from "@/hook/problem/useDeleteProblem";
 import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
 import {
   MoreOutlined,
-  SearchOutlined,
-  TrophyOutlined,
+  TrophyOutlined
 } from "@ant-design/icons";
-import { Dropdown, Input, MenuProps, Switch, Table, Tag } from "antd";
+import { Dropdown, MenuProps, Switch, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import RouteLoading from "../shared/RouteLoading";
-import { MotionRow } from "./MotionRow";
-import { tableContainerVariants } from "./motion";
+import CommonTable from "./CommonTable";
 
 type Props = {
   data: MyProblem[];
@@ -31,9 +28,6 @@ export default function AllProblemTable({
   addNewProblemLink,
   basePath = "/admin",
 }: Props) {
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(5);
-  const [searchValue, setSearchValue] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
 
@@ -159,15 +153,11 @@ export default function AllProblemTable({
   if(loading) return <RouteLoading message="Đang update nội dung, vui lòng đợi..."/>
 
   return (
-    <div className="bg-white p-4 rounded-lg flex flex-col gap-3">
-      <div className="flex justify-end gap-2">
-        <Input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          prefix={<SearchOutlined className="text-gray-400" />}
-          className="text-base w-[220px]"
-          placeholder="Tìm kiếm"
-        />
+    <CommonTable
+      columns={columns}
+      dataSource={data}
+      rowKey="problemId"
+      headerActions={
         <PublishButton
           title="Thêm mới"
           onClick={() => {
@@ -175,53 +165,7 @@ export default function AllProblemTable({
             router.push(addNewProblemLink);
           }}
         />
-      </div>
-
-      {/* <Table
-        columns={columns}
-        dataSource={data}
-        pagination={{
-          current: page,
-          pageSizeOptions: ["5", "10", "20", "50"],
-          total: data.length,
-          showSizeChanger: true,
-          onChange: (page, pageSize) => {
-            setPage(page);
-            setPageSize(pageSize);
-          },
-        }}
-      /> */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          variants={tableContainerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          key={`${page}-${pageSize}`}
-          className="w-full"
-        >
-          <Table
-            rowKey="problemId"
-            columns={columns}
-            dataSource={data}
-            components={{
-              body: {
-                row: MotionRow,
-              },
-            }}
-            pagination={{
-              current: page,
-              pageSizeOptions: ["5", "10", "20", "50"],
-              total: data.length,
-              showSizeChanger: true,
-              onChange: (p, ps) => {
-                setPage(p);
-                setPageSize(ps);
-              },
-            }}
-          />
-        </motion.div>
-      </AnimatePresence>
-    </div>
+      }
+    />
   );
 }

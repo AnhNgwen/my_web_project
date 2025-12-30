@@ -62,7 +62,6 @@ export default function LoginForm({
   const handleSubmit = async (values: LoginFormData) => {
     setLoading(true);
     const { remember, ...payload } = values;
-    console.log(remember);
     const res = await loginAccount(payload);
     localStorage.setItem("userName", res.username);
 
