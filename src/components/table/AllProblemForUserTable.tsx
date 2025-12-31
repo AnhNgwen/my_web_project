@@ -2,7 +2,7 @@
 import { difficultyConfig } from "@/app/[locale]/constants";
 import useLoadingStore from "@/app/store/loadingStore";
 // ExerciseTable.tsx
-import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
+import { Problem } from "@/services/rest/problem/get-active-problem/type";
 import {
   CheckCircleFilled,
   ClockCircleFilled,
@@ -17,17 +17,19 @@ import { useRouter } from "next/navigation";
 import CommonTable from "./CommonTable";
 
 type Props = {
-  data: MyProblem[];
+  data: Problem[];
   basePath?: string;
+  totalElements: number;
 };
 
 export default function AllProblemForUserTable({
   data,
   basePath = "/admin",
+  totalElements,
 }: Props) {
   const router = useRouter();
   const startLoading = useLoadingStore((state) => state.startLoading);
-  const columns: ColumnsType<MyProblem> = [
+  const columns: ColumnsType<Problem> = [
     {
       title: "Bài tập",
       dataIndex: "title",
@@ -148,6 +150,7 @@ export default function AllProblemForUserTable({
       columns={columns}
       dataSource={data}
       rowKey="problemId"
+      totalElements={totalElements}
     />
   );
 }

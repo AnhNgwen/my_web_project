@@ -92,7 +92,6 @@ export default function CreateProblem() {
         })),
       ],
     };
-    console.log(values.samples);
     const {
       problemCode,
       title,

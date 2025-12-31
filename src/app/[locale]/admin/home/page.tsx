@@ -15,9 +15,9 @@ export default function AdminHomePage() {
 
   const { listProblem } = useListProblem();
 
-  const listActiveProblem = listProblem?.filter((item) => item.active === true);
+  const listActiveProblem = listProblem?.content?.filter((item) => item.active === true);
 
-  const listUncctiveProblem = listProblem?.filter(
+  const listUncctiveProblem = listProblem?.content?.filter(
     (item) => item.active === false
   );
 
@@ -30,20 +30,23 @@ export default function AdminHomePage() {
       >
         <Tabs.TabPane key="1" tab="All Problems">
           <AllProblemTable
-            data={listProblem || []}
+            data={listProblem?.content || []}
             addNewProblemLink="/admin/add-problem"
+            totalElements={listProblem?.totalElements || 0}
           />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab="Public Problems">
           <AllProblemTable
             data={listActiveProblem || []}
             addNewProblemLink="/admin/add-problem"
+            totalElements={listProblem?.totalElements || 0}
           />
         </Tabs.TabPane>
         <Tabs.TabPane key="3" tab="Draft Problems">
           <AllProblemTable
             data={listUncctiveProblem || []}
             addNewProblemLink="/admin/add-problem"
+            totalElements={listProblem?.totalElements || 0}
           />
         </Tabs.TabPane>
       </Tabs>

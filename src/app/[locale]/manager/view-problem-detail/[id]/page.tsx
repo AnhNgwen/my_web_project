@@ -40,7 +40,6 @@ export default function ContestDetail({ params }: { params: { id: string } }) {
 
   const { listTestCase } = useListTestCase(params.id);
 
-  console.log(listTestCase);
 
   if (!problemDetail) return <RouteLoading />;
 

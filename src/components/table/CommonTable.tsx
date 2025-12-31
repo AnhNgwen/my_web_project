@@ -17,6 +17,7 @@ interface CommonTableProps<T> {
   headerActions?: React.ReactNode;
   defaultPageSize?: number;
   pageSizeOptions?: string[];
+  totalElements: number
 }
 
 export default function CommonTable<T extends object>({
@@ -29,6 +30,7 @@ export default function CommonTable<T extends object>({
   headerActions,
   defaultPageSize = 5,
   pageSizeOptions = ["5", "10", "20", "50"],
+  totalElements,
 }: CommonTableProps<T>) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(defaultPageSize);
@@ -77,7 +79,7 @@ export default function CommonTable<T extends object>({
             pagination={{
               current: page,
               pageSizeOptions: pageSizeOptions,
-              total: dataSource? dataSource.length: 0,
+              total: totalElements,
               showSizeChanger: true,
               onChange: (p, ps) => {
                 setPage(p);

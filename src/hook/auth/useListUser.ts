@@ -2,10 +2,14 @@ import { getListUser } from "@/services/rest/auth";
 import { useQuery } from "@tanstack/react-query";
 
 export function useListUser() {
-  const { data } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["USER_LIST"],
-    queryFn: () => getListUser(),
+    queryFn: async () => {
+      const result = await getListUser();
+      console.log("useListUser - result:", result);
+      return result;
+    },
     enabled: true,
   });
-  return { listUser: data };
+  return { listUser: data, isLoading, isError, error };
 }

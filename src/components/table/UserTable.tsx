@@ -12,9 +12,10 @@ type User = {
 
 type Props = {
   data: User[];
+  totalElements: number;
 };
 
-export default function UserTable({ data }: Props) {
+export default function UserTable({ data, totalElements }: Props) {
   const [grantModalOpen, setGrantModalOpen] = useState<boolean>(false);
   const [revokeModalOpen, setRevokeModalOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -62,6 +63,7 @@ export default function UserTable({ data }: Props) {
         columns={columns}
         dataSource={data}
         rowKey="username"
+        totalElements={totalElements}
       />
 
       {/* Grant Admin Modal */}

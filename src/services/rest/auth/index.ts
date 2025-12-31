@@ -1,8 +1,9 @@
 import axios from "axios";
+import { ListUserResponse, LoginTypes, RegisterTypes } from "./type";
 
 export async function registerAccount(payload: RegisterTypes) {
   try {
-    const res = await axios.post("/api/register", payload);
+    const res = await axios.post("/api/auth/register", payload);
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -20,7 +21,7 @@ export async function registerAccount(payload: RegisterTypes) {
 
 export async function loginAccount(payload: LoginTypes) {
   try {
-    const res = await axios.post("/api/login", payload);
+    const res = await axios.post("/api/auth/login", payload);
     return res.data;
   } catch (error) {
     console.error("Login API error:", error);
@@ -40,7 +41,7 @@ export async function getUserInfor(userName:string) {
   }
 }
 
-export async function getListUser() {
+export async function getListUser(): Promise<ListUserResponse> {
   try {
     const res = await axios.post('/api/get-list',{
       link: 'http://localhost:8080/user',
@@ -48,6 +49,16 @@ export async function getListUser() {
     return res.data;
   } catch (error) {
     console.error("Get user info API error:", error);
+    return {} as ListUserResponse;
+  }
+}
+
+export async function logoutAccount() {
+  try {
+    const res = await axios.post('/api/auth/logout');
+    return res.data;
+  } catch (error) {
+    console.error("Logout API error:", error);
     return null;
   }
 }

@@ -118,7 +118,6 @@ export default function CreateProblem() {
 
     const res = await addProblemAsync({ payload: problemData });
     setMessage("Đã đăng tải sản phẩm thành công, đang nạp test case");
-    console.log(testCases);
 
     const problemId = res.problemId;
     await addTestCaseAsync({

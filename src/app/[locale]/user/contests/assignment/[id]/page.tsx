@@ -83,10 +83,6 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("===== SUBMIT CODE =====");
-    console.log("Language:");
-    console.log("Code:");
-    console.log("File:");
   };
 
   const breadCrumbs = [

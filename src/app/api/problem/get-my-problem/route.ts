@@ -1,4 +1,4 @@
-import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
+import { Problem } from "@/services/rest/problem/get-active-problem/type";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
     res.data = !res.data ? [] : Array.isArray(res.data) ? res.data : [res.data];
 
-    const data = res.data.map((item: MyProblem) => ({
+    const data = res.data.map((item: Problem) => ({
       ...item,
       maxScore: 100,
     }));

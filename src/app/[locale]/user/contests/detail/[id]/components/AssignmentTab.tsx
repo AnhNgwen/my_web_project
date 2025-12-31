@@ -8,12 +8,13 @@ export default function AssignmentTab() {
 
 
   const { listActiveProblem } = useListActiveProblem("http://localhost:8080/problems");
+  console.log(listActiveProblem);
 
   if (!listActiveProblem) return <RouteLoading />;
 
   return (  
     <Card>
-        <AllProblemForUserTable data={listActiveProblem || []} basePath="/user/contests/assignment/"/>
+        <AllProblemForUserTable totalElements={listActiveProblem.totalElements || 0} data={listActiveProblem.content || []} basePath="/user/contests/assignment/"/>
     </Card>
   );
 }

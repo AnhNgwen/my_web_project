@@ -120,7 +120,6 @@ export default function EditForm({ problemDetail, testCases }: EditFormProps) {
     remove(index);
   };
 
-  console.log(fields)
 
   return (
     <FormProvider {...methods}>

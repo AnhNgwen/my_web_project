@@ -5,7 +5,7 @@ import PublishButton from "@/components/shared/Button/FormHeader/PublishButton";
 import { useUpdateStateProblem } from "@/hook/problem/useUpdateStateProblem";
 // ExerciseTable.tsx
 import { useDeleteProblem } from "@/hook/problem/useDeleteProblem";
-import { MyProblem } from "@/services/rest/problem/get-my-problems/type";
+import { Problem } from "@/services/rest/problem/get-active-problem/type";
 import {
   MoreOutlined,
   TrophyOutlined
@@ -18,15 +18,17 @@ import RouteLoading from "../shared/RouteLoading";
 import CommonTable from "./CommonTable";
 
 type Props = {
-  data: MyProblem[];
+  data: Problem[];
   addNewProblemLink: string;
   basePath?: string;
+  totalElements: number;
 };
 
 export default function AllProblemTable({
   data,
   addNewProblemLink,
   basePath = "/admin",
+  totalElements,
 }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -36,7 +38,7 @@ export default function AllProblemTable({
 
   const router = useRouter();
   const startLoading = useLoadingStore((state) => state.startLoading);
-  const columns: ColumnsType<MyProblem> = [
+  const columns: ColumnsType<Problem> = [
     {
       title: "Bài tập",
       dataIndex: "title",
@@ -157,6 +159,7 @@ export default function AllProblemTable({
       columns={columns}
       dataSource={data}
       rowKey="problemId"
+      totalElements={totalElements}
       headerActions={
         <PublishButton
           title="Thêm mới"

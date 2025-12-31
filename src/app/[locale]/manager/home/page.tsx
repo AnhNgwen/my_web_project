@@ -12,7 +12,6 @@ export default function ManagerPage() {
   const stopLoading = useLoadingStore((state) => state.stopLoading);
   const { listProblem } = useListProblem();
 
-  console.log(listProblem);
 
   useEffect(() => {
     stopLoading();
@@ -29,9 +28,10 @@ export default function ManagerPage() {
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab="My Problems">
           <AllProblemTable
-            data={listProblem || []}
+            data={listProblem?.content || []}
             addNewProblemLink="/manager/add-problem"
             basePath="/manager"
+            totalElements={listProblem?.totalElements || 0}
           />
         </Tabs.TabPane>
       </Tabs>

@@ -1,14 +1,15 @@
 import axios from "axios";
-import { ActiveProblem } from "./type";
+import { ProblemResponse } from "./type";
 
-export async function getListActiveProblem(link: string): Promise<ActiveProblem[]> {
+export async function getListActiveProblem(link: string): Promise<ProblemResponse> {
   const res = await axios.post("/api/get-list", {
     link,
   });
-   res.data = !res.data ? [] : Array.isArray(res.data) ? res.data : [res.data];
-  
-  return res.data.map((item: ActiveProblem) => ({
+
+  if (!res.data.content) return {} as ProblemResponse;
+
+  return {...res.data, content: res.data.content.map((item: ProblemResponse) => ({
     ...item,
     maxScore: 100,
-  }));
+  }))};
 }

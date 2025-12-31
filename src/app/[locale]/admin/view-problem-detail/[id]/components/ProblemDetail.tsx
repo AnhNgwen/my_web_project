@@ -91,7 +91,6 @@ export default function ProblemDetailPage({ testCases, data }: Props) {
 
   const router = useRouter();
 
-  console.log(data);
 
   return (
    <AnimatePresence mode="wait">
