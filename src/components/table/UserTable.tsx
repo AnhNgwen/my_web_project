@@ -23,6 +23,9 @@ export default function UserTable({ data }: Props) {
   const [problem, setProblem] = useState<string | null>(null);
   const [reason, setReason] = useState<string>("");
 
+  console.log(tag)
+  console.log(problem)
+
   const columns = [
     { title: "Username", dataIndex: "username", key: "username" },
     { title: "Role", dataIndex: "role", key: "role" },
