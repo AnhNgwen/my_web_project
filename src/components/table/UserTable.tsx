@@ -1,6 +1,8 @@
 "use client";
+import useLoadingStore from "@/app/store/loadingStore";
 import DangerButton from "@/components/shared/Button/FormHeader/DangerButton";
 import PublishButton from "@/components/shared/Button/FormHeader/PublishButton";
+import { useUpdateUserRole } from "@/hook/user-info/useUpdateRole";
 import { FilterOptions } from "@/services/rest/constant";
 import { User } from "@/services/rest/user/type";
 import { Input, Modal, Select } from "antd";
@@ -21,6 +23,11 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
   const [tag, setTag] = useState<string | null>(null);
   const [problem, setProblem] = useState<string | null>(null);
   const [reason, setReason] = useState<string>("");
+
+  const startLoading = useLoadingStore((state) => state.startLoading);
+  const stopLoading = useLoadingStore((state) => state.stopLoading);
+
+  const {updateRoleAsync} = useUpdateUserRole();
 
   console.log(tag)
   console.log(problem)
@@ -73,6 +80,7 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
         onCancel={() => setGrantModalOpen(false)}
         onOk={() => setGrantModalOpen(false)}
         centered
+        footer={null}
       >
         <div className="flex flex-col gap-4">
           <div>
@@ -113,6 +121,21 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
             />
           )}
         </div>
+        <div className="flex gap-2 mt-4 justify-end">
+        <DangerButton title="Cancel" onClick={() => {
+          setGrantModalOpen(false)
+          }}/>
+        <PublishButton title="Grant" onClick={async () => {
+          startLoading()
+          await updateRoleAsync({
+            username: selectedUser?.username || '',
+            role: "ADMIN",
+            action: "GRANT",
+          })
+          stopLoading()
+          setGrantModalOpen(false)
+          }} isSubmit={false}/>
+        </div>
       </Modal>
 
       {/* Revoke Admin Modal */}
@@ -121,6 +144,8 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
         open={revokeModalOpen}
         onCancel={() => setRevokeModalOpen(false)}
         onOk={() => setRevokeModalOpen(false)}
+        centered
+        footer={null}
       >
         <p className="font-medium mb-1">Reason</p>
         <Input.TextArea
@@ -129,6 +154,21 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
           onChange={(e) => setReason(e.target.value)}
           placeholder="Nhập lý do thu hồi quyền"
         />
+         <div className="flex gap-2 mt-4 justify-end">
+        <DangerButton title="Cancel" onClick={() => {
+          setGrantModalOpen(false)
+          }}/>
+        <PublishButton title="Revoke" onClick={async () => {
+          startLoading()
+          await updateRoleAsync({
+            username: selectedUser?.username || '',
+            role: "USER",
+            action: "REVOKE",
+          })
+          stopLoading()
+          setRevokeModalOpen(false)
+          }} isSubmit={false}/>
+        </div>
       </Modal>
     </>
   );

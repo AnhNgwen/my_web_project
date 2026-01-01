@@ -12,3 +12,9 @@ export interface ListUserResponse {
   last: boolean;
   first: boolean;
 }
+
+export interface UpdateRoleRequest {
+  username: string;
+  role: 'ADMIN' | 'USER';
+  action: 'GRANT' | 'REVOKE';
+}

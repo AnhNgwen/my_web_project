@@ -1,7 +1,7 @@
 import { UserProfileFormValues } from "@/hook/user-info/useUserInfoSchema";
 import axios from "axios";
 import { FilterOptions } from "../constant";
-import { ListUserResponse } from "./type";
+import { ListUserResponse, UpdateRoleRequest } from "./type";
 
 const  BASE_URL = "http://localhost:8080";
 
@@ -33,6 +33,19 @@ export async function updateUserInfo(payload: UserProfileFormValues) {
   try {
     const res = await axios.post('/api/post', {
       link: `${BASE_URL}/user/profile`,
+      payload,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Update user API error:", error);
+    return null;
+  }
+}
+
+export async function updateRole(payload: UpdateRoleRequest) {
+  try {
+    const res = await axios.post('/api/update', {
+      link: `${BASE_URL}/user/manage`,
       payload,
     });
     return res.data;
