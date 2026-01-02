@@ -5,7 +5,7 @@ import CustomUploadFile from "@/components/form/CustomUploadFile";
 import FormHeader from "@/components/form/FormHeader";
 import ProblemStatement from "@/components/ProblemStatement";
 import { useProblemDetail } from "@/hook/problem/useProblemDetail";
-import { useListTestCase } from "@/hook/test-case/useListTestCase";
+import useGetListTestCase from "@/hook/test-case/useGetListTestCase";
 import { Card, Divider, Tag, Typography, UploadFile } from "antd";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -59,10 +59,10 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const { problemDetail } = useProblemDetail(id);
-  const { listTestCase } = useListTestCase(id);
+  const { listTestCase } = useGetListTestCase(id);
 
   const sampleTestCase = useMemo(
-    () => listTestCase?.find((item) => item.sample === true),
+    () => listTestCase?.content.find((item) => item.sample === true),
     [listTestCase]
   );
 
