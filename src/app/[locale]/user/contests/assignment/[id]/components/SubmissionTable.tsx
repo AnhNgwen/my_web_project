@@ -1,36 +1,31 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import useLoadingStore from "@/app/store/loadingStore";
+import CommonTable from "@/components/table/CommonTable";
 import useGetListSubmission from "@/hook/submission/useGetListSubmission";
-import { Submission } from "@/services/rest/submission/type";
+import { Submission } from "@/services/rest/submission/get-list-submission/type";
 import { ReloadOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Table, Tag } from "antd";
+import { Button, Checkbox, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../../.././style.scss";
 
 export default function SubmissionTable({problemId}: {problemId: string}) {
   const [data, setData] = useState<Submission[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(5);
-  const router = useRouter();
-  const startLoading = useLoadingStore((state) => state.startLoading);
+  
 
-  console.log(pageSize);
-
-  const { listSubmission, refetch } = useGetListSubmission(problemId);
+  const { listSubmission, refetch, handleFilterChange } = useGetListSubmission(problemId);
+  
 
   useEffect(() => {
     if (!listSubmission) return;
 
-    setData(listSubmission);
+    setData(listSubmission.content);
   }, [listSubmission]);
 
   const columns: ColumnsType<Submission> = [
     {
       title: "ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "submissionId",
+      key: "submissionId",
       render: (text: string) => (
         <span className="text-blue-600 hover:underline cursor-pointer">
           {text}
@@ -43,45 +38,42 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
       key: "status",
       render: (status) => {
         if (status === "Accepted") {
-          return <Tag color="green">Accepted</Tag>;
-        } else if (status === "Wrong Answer") {
-          return <Tag color="red">Wrong Answer</Tag>;
+          return <Tag color="green">{status}</Tag>;
+        } else if (status === "Wrong Answer" || status === "RUNTIME_ERROR") {
+          return <Tag color="red">{status}</Tag>;
         }
-        return <Tag color="orange">Partial</Tag>;
+        return <Tag color="orange">{status}</Tag>;
       },
     },
     {
-      title: "Điểm",
-      dataIndex: "score",
-      key: "score",
-      render: (score) => (score !== null ? score : "--"),
+      title: "Số Test case đạt",
+      dataIndex: "passedTestcases",
+      key: "passedTestcases",
+      render: (passedTestcases) => (passedTestcases !== null ? passedTestcases : "--"),
     },
-    {
-      title: "Đạt",
-      key: "passed",
-      render: (_, record) =>
-        record.per_test_results !== null ? (
-          <span>
-            {
-              record.per_test_results.filter(
-                (item) => item.status === "Accepted"
-              ).length
-            }{" "}
-            / {record.per_test_results.length}
-          </span>
-        ) : (
-          "--"
-        ),
+     {
+      title: "Tổng Test case",
+      dataIndex: "totalTestcases",
+      key: "totalTestcases",
+      render: (totalTestcases) => (totalTestcases !== null ? totalTestcases : "--"),
     },
     {
       title: "Ngôn ngữ",
       dataIndex: "language",
       key: "language",
+      render: (language) => (language ? language : "C++"),
     },
     {
-      title: "Thời gian tạo",
-      dataIndex: "created_at",
-      key: "created_at",
+      title: "Thời gian chạy",
+      dataIndex: "executionTime",
+      key: "executionTime",
+      render: (executionTime) => (executionTime !== null ? executionTime : "--"),
+    },
+    {
+      title: "Memory sử dụng",
+      dataIndex: "memoryUsed",
+      key: "memoryUsed",
+      render: (memoryUsed) => (memoryUsed !== null ? memoryUsed : "--"),
     },
     {
       title: "Bài nộp cuối",
@@ -89,12 +81,12 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
       align: "center",
       render: (_, record) => (
         <Checkbox
-          checked={record.isFinal}
+          checked={record.selected}
           onChange={() => {
             setData((prev) =>
               prev.map((item) => ({
                 ...item,
-                isFinal: item.id === record.id, // ⭐ chỉ 1 cái true
+                selected: item.submissionId === record.submissionId, // ⭐ chỉ 1 cái true
               }))
             );
           }}
@@ -123,27 +115,7 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
         </Button>
       </div>
 
-      <Table
-        dataSource={data}
-        columns={columns}
-        className="custom__table"
-        onRow={(record) => ({
-          onClick: () => {
-            startLoading();
-            router.push(`/user/contests/test-case/${record.id}`);
-          },
-        })}
-        pagination={{
-          current: page,
-          pageSizeOptions: ["5", "10", "20", "50"],
-          total: data.length,
-          showSizeChanger: true,
-          onChange: (page, pageSize) => {
-            setPage(page);
-            setPageSize(pageSize);
-          },
-        }}
-      />
+      <CommonTable dataSource={data} columns={columns} totalElements={listSubmission?.totalElements || 0} handlePageChange={handleFilterChange}/>
     </div>
   );
 }

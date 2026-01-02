@@ -7,7 +7,7 @@ import "../../../style.scss";
 export default function AssignmentTab() {
 
 
-  const { listActiveProblem, isLoading, isError, error } = useGetListActiveProblem();
+  const { listActiveProblem, isLoading } = useGetListActiveProblem();
 
   if (isLoading || !listActiveProblem) return <RouteLoading />;
 
