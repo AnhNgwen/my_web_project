@@ -121,7 +121,7 @@ export default function CreateProblem() {
 
     const problemId = res.problemId;
     await addTestCaseAsync({
-      payload: testCases,
+      payload: {testcases: testCases},
       problemId,
     });
     setMessage("Đã nạp test case thành công, đang điều hướng");
