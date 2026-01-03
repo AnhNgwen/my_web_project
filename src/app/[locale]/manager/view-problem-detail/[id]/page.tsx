@@ -38,7 +38,8 @@ export default function ContestDetail({ params }: { params: { id: string } }) {
 
   const { problemDetail } = useProblemDetail(params.id);
 
-  const { listTestCase, handleFilterChange } = useGetListTestCase(params.id);
+  const { listTestCase } = useGetListTestCase(params.id);
+
 
   console.log("listTestCase", listTestCase);
   console.log("problemDetail", problemDetail);
