@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import { Card, Table, Tag, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -57,10 +58,10 @@ const codeSectionVariants = {
   },
 };
 
-export default function TestCasePage({ params }: { params: { id: string } }) {
+export default function TestCasePage({ params }: { params: { id: string, assigmentId: string } }) {
   const [showCode, setShowCode] = useState(false);
 
-  const { id } = params;
+  const { id, assigmentId } = params;
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [confirmModalLink, setConfirmModalLink] = useState<string>("#");
@@ -207,7 +208,7 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
     },
     {
       label: "Current Assignment",
-      link: "#",
+      link: `/user/contests/assignment/${assigmentId}`,
     },
     {
       label: "Test case",
@@ -238,7 +239,7 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
             <Table
               rowKey="testCaseId"
               columns={columns}
-              dataSource={submissionDetail.per_test_results}
+              dataSource={[]}
               pagination={{ pageSize: 5 }}
             />
             <motion.div
@@ -267,7 +268,7 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
                   className="mt-3 bg-[#0f172a] rounded-lg p-4 text-sm text-gray-100 overflow-auto"
                 >
                   <pre className="whitespace-pre-wrap">
-                    <code>{submissionDetail?.code}</code>
+                    <code>anything</code>
                   </pre>
                 </motion.div>
               )}
@@ -297,28 +298,23 @@ export default function TestCasePage({ params }: { params: { id: string } }) {
 
               <motion.div variants={cardVariants}>
                 <InfoRow label="Đạt">
-                  {
-                    submissionDetail?.per_test_results.filter(
-                      (item) => item.status === "Accepted"
-                    ).length
-                  }{" "}
-                  / {submissionDetail?.per_test_results.length} test cases
+                  {submissionDetail.passedTestcases}/{submissionDetail.totalTestcases} test cases
                 </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
-                <InfoRow label="Điểm">{submissionDetail?.score} </InfoRow>
+                <InfoRow label="Điểm">{(submissionDetail.passedTestcases / submissionDetail.totalTestcases * 100).toFixed(2)} </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Ngôn ngữ">Java 13 </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Tổng thời gian chạy">
-                  {submissionDetail?.runtime} ms
+                  {submissionDetail?.executionTime} ms
                 </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Thời gian tạo">
-                  {submissionDetail?.created_at}
+                  {dayjs(submissionDetail?.judgedAt).format("DD/MM/YYYY HH:mm:ss")}
                 </InfoRow>
               </motion.div>
             </motion.div>

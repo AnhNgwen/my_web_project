@@ -6,17 +6,17 @@ export interface PerTestResults {
 }
 
 export interface Submission {
-  id: number;
-  user_id: number;
-  problem_id: number;
-  code: string;
+  errorMessage: string;
+  executionTime: number | null;
+  judgedAt: string;        
   language: string;
+  memoryUsed: number | null;
+  passedTestcases: number;
+  problemCode: string;
+  problemTitle: string;
   status: string;
-  score: number | null;
-  runtime: number | null;
-  memory: number | null;
-  compile_output: string | null;
-  per_test_results: PerTestResults[];
-  created_at: string;
-  isFinal: boolean;
+  submissionId: number;
+  submittedAt: string; 
+  totalTestcases: number;
+  username: string;
 }

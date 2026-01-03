@@ -25,8 +25,8 @@ export default function AssignmentTab() {
 
   console.log(pageSize);
 
-  const { list_problem } = useListSubmittedProblem();
-  console.log(list_problem);
+  const { list_submitted_problem } = useListSubmittedProblem();
+  console.log(list_submitted_problem);
 
   const exerciseTableColumns: ColumnsType<SubmittedProblem> = [
     {
@@ -152,19 +152,19 @@ export default function AssignmentTab() {
   ];
 
   const { currentScore, maxScore } = useMemo(() => {
-    if (!list_problem) return { currentScore: 0, maxScore: 0 };
+    if (!list_submitted_problem) return { currentScore: 0, maxScore: 0 };
 
-    const currentScore = list_problem.reduce(
+    const currentScore = list_submitted_problem.reduce(
       (sum, item) => sum + item.score,
       0
     );
 
-    const maxScore = list_problem.reduce((sum, item) => sum + item.maxScore, 0);
+    const maxScore = list_submitted_problem.reduce((sum, item) => sum + item.maxScore, 0);
 
     return { currentScore, maxScore };
-  }, [list_problem]);
+  }, [list_submitted_problem]);
 
-  if (!list_problem) return <RouteLoading />;
+  if (!list_submitted_problem) return <RouteLoading />;
 
   return (
     <>
@@ -187,13 +187,13 @@ export default function AssignmentTab() {
           </div>
 
           <Table
-            dataSource={list_problem}
+            dataSource={list_submitted_problem}
             columns={exerciseTableColumns}
             className="custom__table"
             pagination={{
               current: page,
               pageSizeOptions: ["5", "10", "20", "50"],
-              total: list_problem.length,
+              total: list_submitted_problem.length,
               showSizeChanger: true,
               onChange: (page, pageSize) => {
                 setPage(page);

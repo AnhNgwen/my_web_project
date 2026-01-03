@@ -8,5 +8,5 @@ export function useListSubmittedProblem() {
       return getListSubmittedProblem();
     },
   });
-  return { list_problem: data, isLoading: isLoading };
+  return { list_submitted_problem: data, isLoading: isLoading };
 }

@@ -5,11 +5,13 @@ import { Submission } from "@/services/rest/submission/get-list-submission/type"
 import { ReloadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "../../.././style.scss";
 
 export default function SubmissionTable({problemId}: {problemId: string}) {
   const [data, setData] = useState<Submission[]>([]);
+  const router = useRouter();
   
 
   const { listSubmission, refetch, handleFilterChange } = useGetListSubmission(problemId);
@@ -27,7 +29,7 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
       dataIndex: "submissionId",
       key: "submissionId",
       render: (text: string) => (
-        <span className="text-blue-600 hover:underline cursor-pointer">
+        <span className="text-blue-600 hover:underline cursor-pointer" onClick={() => router.push(`/user/contests/test-case/${text}/${problemId}`)}>
           {text}
         </span>
       ),
