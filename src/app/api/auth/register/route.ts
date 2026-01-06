@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const res = await axios.post(
-      "http://localhost:8080/auth/register",
+      "https://dinhchat.id.vn/auth/register",
       payload,
       {
         // cookies from browser are not sent in this server-side call anyway

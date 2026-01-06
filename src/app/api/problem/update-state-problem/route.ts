@@ -8,7 +8,7 @@ export async function PUT(req: NextRequest) {
 
   try {
     const res = await axios.put(
-      `http://localhost:8080/problems/active/${problemId}`,
+      `https://dinhchat.id.vn/problems/active/${problemId}`,
       null,
       {
         headers: {

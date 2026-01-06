@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const { id } = await req.json();
 
   try {
-    const res = await axios.get(`http://localhost:8080/problems/${id}`, {
+    const res = await axios.get(`https://dinhchat.id.vn/problems/${id}`, {
       headers: {
         Authorization: `Bearer ${jwtToken?.value}`,
       },

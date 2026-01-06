@@ -4,7 +4,7 @@ import { ProblemResponse } from "./type";
 
 export async function getListActiveProblem(filter: FilterOptions): Promise<ProblemResponse> {
   const res = await axios.post("/api/get-list", {
-    link: `http://localhost:8080/problems?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
+    link: `https://dinhchat.id.vn/problems?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
   });
 
   if (!res.data.content) return {} as ProblemResponse;

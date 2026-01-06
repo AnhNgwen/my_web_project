@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   const jwtToken = req.cookies.get("jwtToken");
 
   try {
-    const res = await axios.post("http://localhost:8080/problems", payload, {
+    const res = await axios.post("https://dinhchat.id.vn/problems", payload, {
       headers: {
         Authorization: `Bearer ${jwtToken?.value}`,
       },

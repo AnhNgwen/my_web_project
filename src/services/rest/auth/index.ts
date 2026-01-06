@@ -41,7 +41,7 @@ export async function logoutAccount() {
 export async function deleteAccount(userName:string) {
   try {
     const res = await axios.post('/api/delete', {
-      link: `http://localhost:8080/user/${userName}`,
+      link: `https://dinhchat.id.vn/user/${userName}`,
     });
     return res.data;
   } catch (error) {

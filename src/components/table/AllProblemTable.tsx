@@ -142,7 +142,7 @@ export default function AllProblemTable({
             label: "Xóa",
             danger: true,
             onClick: () => {
-              deleteProblemAsync({ id: record.problemId, link: 'http://localhost:8080/problems' })
+              deleteProblemAsync({ id: record.problemId, link: 'https://dinhchat.id.vn/problems' })
             },
           },
         ];
