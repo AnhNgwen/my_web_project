@@ -5,6 +5,7 @@ import FormHeader from "@/components/form/FormHeader";
 import RouteLoading from "@/components/shared/RouteLoading";
 import { useSubmissionDetail } from "@/hook/submission/useSubmissionDetail";
 import { PerTestResults } from "@/services/rest/submission/type";
+import { mapLanguage } from "@/utils/map";
 import {
   CheckCircleFilled,
   CloseCircleFilled,
@@ -79,13 +80,13 @@ export default function TestCasePage({ params }: { params: { id: string, assigme
 
   const renderStatusText = (status: string) => {
     switch (status) {
-      case "Accepted":
+      case "ACCEPTED":
         return <span className="text-green-600 font-semibold">Accepted</span>;
 
-      case "Wrong Answer":
+      case "WRONG_ANSWER":
         return <span className="text-red-600 font-semibold">Wrong Answer</span>;
 
-      case "Partial":
+      case "TIME_LIMIT_EXCEEDED":
         return (
           <span className="text-orange-500 font-semibold">
             Time Limit Exceeded
@@ -305,7 +306,7 @@ export default function TestCasePage({ params }: { params: { id: string, assigme
                 <InfoRow label="Điểm">{(submissionDetail.passedTestcases / submissionDetail.totalTestcases * 100).toFixed(2)} </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
-                <InfoRow label="Ngôn ngữ">Java 13 </InfoRow>
+                <InfoRow label="Ngôn ngữ">{mapLanguage(submissionDetail.language)}</InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Tổng thời gian chạy">

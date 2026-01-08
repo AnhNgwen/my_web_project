@@ -7,7 +7,7 @@ import { useAddProblem } from "@/hook/problem/useAddProblem";
 import { useAddTestCase } from "@/hook/test-case/useAddTestCase";
 import { getErrorMessages } from "@/utils/fetFormError";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, message, Steps } from "antd";
+import { Card, message, notification, Steps } from "antd";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
@@ -23,6 +23,9 @@ const ReviewStep = dynamic(() => import('./components/Review'));
 const TestcaseManager = dynamic(() => import('./components/Testcases'));
 
 export default function CreateProblem() {
+
+  const [api, contextHolder] = notification.useNotification();
+
   const [step, setStep] = useState<number>(0);
   const methods = useForm<z.infer<typeof problemFormSchema>>({
     resolver: zodResolver(problemFormSchema),
@@ -132,11 +135,18 @@ export default function CreateProblem() {
 
       if (!res.ok) {
         if (res.status === 409) {
-          message.error('Problem code đã tồn tại');
+          api.error({
+          title: 'Problem đã tồn tại',
+          description:
+            'Problem code đã tồn tại trong hệ thống',
+        });
           return;
         }
 
-        message.error("Có lỗi xảy ra");
+        api.error({
+          title: 'Có lỗi xảy ra',
+          description: 'Có lỗi xảy ra khi tạo problem',
+        });
         return;
       }
 
@@ -154,6 +164,8 @@ export default function CreateProblem() {
   if (isSubmitting) return <RouteLoading message={loadingMessage} />;
 
   return (
+    <>
+    {contextHolder}
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormHeader
@@ -235,5 +247,6 @@ export default function CreateProblem() {
         onCancel={() => setOpenDialog(false)}
       />
     </FormProvider>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/set-state-in-effect */
+import useLoadingStore from "@/app/store/loadingStore";
 import CommonTable from "@/components/table/CommonTable";
 import useGetListSubmission from "@/hook/submission/useGetListSubmission";
 import { Submission } from "@/services/rest/submission/get-list-submission/type";
@@ -15,7 +16,8 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
   
 
   const { listSubmission, refetch, handleFilterChange } = useGetListSubmission(problemId);
-  
+  const startLoading = useLoadingStore((state) => state.startLoading)
+  const stopLoading = useLoadingStore((state) => state.stopLoading)
 
   useEffect(() => {
     if (!listSubmission) return;
@@ -39,9 +41,9 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
       dataIndex: "status",
       key: "status",
       render: (status) => {
-        if (status === "Accepted") {
+        if (status === "ACCEPTED") {
           return <Tag color="green">{status}</Tag>;
-        } else if (status === "Wrong Answer" || status === "RUNTIME_ERROR") {
+        } else if (status === "WRONG_ANSWER" || status === "RUNTIME_ERROR") {
           return <Tag color="red">{status}</Tag>;
         }
         return <Tag color="orange">{status}</Tag>;
@@ -97,6 +99,8 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
     },
   ];
 
+  console.log(listSubmission)
+
   return (
     <div>
       <div
@@ -110,7 +114,11 @@ export default function SubmissionTable({problemId}: {problemId: string}) {
         <Button
           type="primary"
           icon={<ReloadOutlined />}
-          onClick={() => refetch()}
+          onClick={async () => {
+            startLoading()
+            await refetch()
+            stopLoading()
+          }}
           className="!shadow-none"
         >
           Làm mới
