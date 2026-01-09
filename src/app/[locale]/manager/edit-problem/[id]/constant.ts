@@ -1,12 +1,5 @@
 import z from "zod";
 
-const sampleSchema = z.object({
-  input: z.string().min(1, "Input is required"),
-  expectedOutput: z.string().min(1, "Expected output is required"),
-  orderIndex: z.number().int().nonnegative(),
-  isSample: z.boolean(),
-});
-
 export const editProblemFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
 
