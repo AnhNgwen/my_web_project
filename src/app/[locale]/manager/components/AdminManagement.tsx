@@ -5,12 +5,8 @@ import useGetListUser from "@/hook/user-info/useGetListUser";
 import "./style.scss";
 
 export default function AdminManagementMock() {
-  const { listUser, isLoading, isError, error, handleFilterChange } = useGetListUser();
+  const { listUser, isError, error, handleFilterChange } = useGetListUser();
 
-  console.log(listUser)
-
-  console.log("AdminManagement - listUser:", listUser);
-  console.log("AdminManagement - isLoading:", isLoading);
   if (isError) {
     console.error("AdminManagement - error:", error);
   }

@@ -1,6 +1,6 @@
 export interface User {
   username: string;
-  role: 'ADMIN' | 'USER';
+  role: 'ADMIN' | 'USER' | 'MANAGER';
 }
 
 export interface ListUserResponse {

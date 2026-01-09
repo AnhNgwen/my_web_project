@@ -51,6 +51,7 @@ export default function UserTable({
                 setGrantModalOpen(true);
               }}
               title="Grant Admin"
+              disable={record.role === "MANAGER"}
             />
           ) : (
             <DangerButton
