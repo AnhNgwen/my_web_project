@@ -20,12 +20,14 @@ type Props = {
   data: Problem[];
   basePath?: string;
   totalElements: number;
+  hasButton?: boolean;
 };
 
 export default function AllProblemForUserTable({
   data,
   basePath = "/admin",
   totalElements,
+  hasButton = false,
 }: Props) {
   const router = useRouter();
   const startLoading = useLoadingStore((state) => state.startLoading);
@@ -150,6 +152,7 @@ export default function AllProblemForUserTable({
       dataSource={data}
       rowKey="problemId"
       totalElements={totalElements}
+      hasButton={hasButton}
     />
   );
 }

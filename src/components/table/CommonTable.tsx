@@ -21,6 +21,7 @@ interface CommonTableProps<T> {
   pageSizeOptions?: string[];
   totalElements: number;
   handlePageChange?: ({ pageNumber, pageSize }: FilterOptions) => void;
+  hasButton?: boolean 
 }
 
 export default function CommonTable<T extends object>({
@@ -35,6 +36,7 @@ export default function CommonTable<T extends object>({
   pageSizeOptions = ["5", "10", "20", "50"],
   totalElements,
   handlePageChange,
+  hasButton = false
 }: CommonTableProps<T>) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(defaultPageSize);
@@ -51,16 +53,16 @@ export default function CommonTable<T extends object>({
 
   return (
     <div className="bg-white p-4 rounded-lg flex flex-col gap-3">
-      <div className="flex items-center justify-between">
+      <div className={`flex items-center ${hasButton ? "justify-between" : "justify-end"}`}>
     {/* LEFT: Back button */}
-    <Button
+   {hasButton && <Button
       icon={<ArrowLeftOutlined />}
       type="text"
       className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
       onClick={() => router.back()}
     >
       Quay lại
-    </Button>
+    </Button>}
 
     {/* RIGHT: Search + actions */}
     <div className="flex gap-2">

@@ -1,10 +1,10 @@
-type TestCaseResult = {
+export type TestCaseResult = {
   testcaseNumber: number;
   input: string;
   expectedOutput: string;
   actualOutput: string;
   timeTaken: number;
   memoryUsed: number;
-  status: string;
+  status: string; 
   passed: boolean;
 };

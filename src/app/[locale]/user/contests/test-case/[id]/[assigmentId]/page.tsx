@@ -3,8 +3,9 @@ import useLoadingStore from "@/app/store/loadingStore";
 import ConfirmModal from "@/components/form/ConfirmModal";
 import FormHeader from "@/components/form/FormHeader";
 import RouteLoading from "@/components/shared/RouteLoading";
+import { useListTestCaseResult } from "@/hook/submission/useGetTestCaseResult";
 import { useSubmissionDetail } from "@/hook/submission/useSubmissionDetail";
-import { PerTestResults } from "@/services/rest/submission/type";
+import { TestCaseResult } from "@/services/rest/submission/get-list-test-case-result/type";
 import { mapLanguage } from "@/utils/map";
 import {
   CheckCircleFilled,
@@ -19,6 +20,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import InfoRow from "./components/InfoRow";
+import ResultModal from "./components/ResultModal";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -68,6 +70,7 @@ export default function TestCasePage({
 
   const { id, assigmentId } = params;
 
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [confirmModalLink, setConfirmModalLink] = useState<string>("#");
   const t = useTranslations("sidebar");
@@ -77,8 +80,9 @@ export default function TestCasePage({
     stopLoading();
   }, [stopLoading]);
   const { submissionDetail } = useSubmissionDetail(id);
+  const {listTestCaseResult} = useListTestCaseResult(id)
 
-  console.log(submissionDetail);
+  console.log(listTestCaseResult)
 
   if (!submissionDetail) return <RouteLoading />;
 
@@ -102,24 +106,22 @@ export default function TestCasePage({
     }
   };
 
-  const columns: ColumnsType<PerTestResults> = [
+  const columns: ColumnsType<TestCaseResult> = [
     {
       title: "Tính điểm",
-      dataIndex: "status",
+      dataIndex: "passed",
       align: "center",
-      render: (status) => {
+      render: (passed) => {
         return (
           <Tooltip
             title={
-              status === "Accepted"
+              passed
                 ? "Test case của bạn được tính điểm"
                 : "Test case của bạn không được tính điểm"
             }
             color={
-              status === "Accepted"
+              passed
                 ? "#16A34A"
-                : status === "Time Limit Exceeded"
-                ? "#F97316"
                 : "#DC2626"
             }
             overlayInnerStyle={{
@@ -134,7 +136,7 @@ export default function TestCasePage({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              {status === "Accepted" ? (
+              {passed ? (
                 <CheckCircleFilled className="text-green-500 text-2xl" />
               ) : (
                 <CloseCircleFilled className="text-red-500 text-2xl" />
@@ -144,55 +146,46 @@ export default function TestCasePage({
         );
       },
     },
-    // {
-    //   title: "Điểm",
-    //   dataIndex: "score",
-    // },
     {
       title: "Thông báo",
-      dataIndex: "status",
+      dataIndex: "passed",
       align: "center",
-      render: (status) => {
-        if (status === "Accepted") {
+      render: (passed) => {
+        if (passed) {
           return (
             <Tag color="green" className="font-medium text-base">
               Accepted
             </Tag>
           );
-        } else if (status === "Wrong Answer") {
+        } else  {
           return (
             <Tag color="red" className="font-medium text-base">
               Wrong Answer
             </Tag>
           );
         }
-        return (
-          <Tag color="orange" className="font-medium text-base">
-            Time Limit Exceeded
-          </Tag>
-        );
       },
     },
     {
       title: "Thời gian chạy (ms)",
-      dataIndex: "runtime",
+      dataIndex: "timeTaken",
       align: "center",
     },
     {
       title: "Bộ nhớ (MB)",
-      dataIndex: "memory",
+      dataIndex: "memoryUsed",
       align: "center",
       render: (v: number) => v.toLocaleString(),
     },
     {
       title: "Thao tác",
       align: "center",
-      render: () => (
+      render: (record: TestCaseResult) => (
         <>
           <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }}>
-            <InfoCircleFilled className="text-blue-500 text-xl cursor-pointer" />
+            <InfoCircleFilled className="text-blue-500 text-xl cursor-pointer" onClick={() => setOpenModal(true)}/>
           </motion.span>
-          {/* <ResultModal open={openModal} onClose={() => setOpenModal(false)} input={record.}/> */}
+          <ResultModal open={openModal} onClose={() => setOpenModal(false)} input={record.input} expectedOutput={record.expectedOutput} output={record.actualOutput}/>
         </>
       ),
     },
@@ -244,7 +237,7 @@ export default function TestCasePage({
             <Table
               rowKey="testCaseId"
               columns={columns}
-              dataSource={[]}
+              dataSource={listTestCaseResult || []}
               pagination={{ pageSize: 5 }}
             />
             <motion.div

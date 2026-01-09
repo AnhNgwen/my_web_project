@@ -12,7 +12,7 @@ export default function AssignmentTab({ adminId }: { adminId: string }) {
 
   return (  
     <Card>
-        <AllProblemForUserTable totalElements={listActiveProblem?.totalElements || 0} data={listActiveProblem?.content || []} basePath="/user/contests/assignment/"/>
+        <AllProblemForUserTable hasButton={true} totalElements={listActiveProblem?.totalElements || 0} data={listActiveProblem?.content || []} basePath="/user/contests/assignment/"/>
     </Card>
   );
 }

@@ -1,4 +1,4 @@
-import { getListTestCaseResult } from "@/services/rest/submission/get-test-case-result/getTestCaseResult";
+import { getListTestCaseResult } from "@/services/rest/submission/get-list-test-case-result";
 import { useQuery } from "@tanstack/react-query";
 
 export function useListTestCaseResult(submissionId: string) {
