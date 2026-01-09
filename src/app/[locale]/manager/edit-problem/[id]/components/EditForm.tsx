@@ -5,26 +5,23 @@ import ConfirmModal from "@/components/form/ConfirmModal";
 import FormHeader from "@/components/form/FormHeader";
 import RHFInput from "@/components/form/RHFInput";
 import RHFSelect from "@/components/form/RHFSelect";
-import RHFSwitch from "@/components/form/RHFSwitch";
 import RHFTextArea from "@/components/form/RHFTextArea";
+import ListTestCase from "@/components/problem/ListTestCase";
 import CancelButton from "@/components/shared/Button/FormHeader/CancelButton";
-import DangerButton from "@/components/shared/Button/FormHeader/DangerButton";
 import PublishButton from "@/components/shared/Button/FormHeader/PublishButton";
 import { useUpdateProblem } from "@/hook/problem/useUpdateProblem";
 import { ProblemDetail } from "@/services/rest/problem/getProlemDetail/type";
 import { TestCase } from "@/services/rest/test-case/get-test-case/type";
 import { getErrorMessages } from "@/utils/fetFormError";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, Col, Flex, message, Row, Typography } from "antd";
+import { Card, Col, message, Row } from "antd";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { editProblemFormSchema } from "../constant";
 
-const { Title, Text } = Typography;
 
 // Animation variants
 const containerVariants = {
@@ -83,19 +80,16 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
       title: problemDetail.title,
       problemCode: problemDetail.problemCode,
       difficultyLevel: problemDetail.difficultyLevel,
-      active: problemDetail.active,
       timeLimit: problemDetail.timeLimit,
       memoryLimit: problemDetail.memoryLimit,
       description: problemDetail.description,
       constraints: problemDetail.constraints,
       sampleInput: problemDetail.sampleInput || '',
       sampleOutput: problemDetail.sampleOutput || '',
-      testCases: testCases || [],
     },
   });
 
   const { control, handleSubmit, formState: { errors } } = methods;
-  const t = useTranslations("problem");
   const router = useRouter();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [confirmModalLink, setConfirmModalLink] = useState<string>("#");
@@ -125,13 +119,6 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
     stopLoading()
   };
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "testCases",
-    keyName: "fieldId",
-    shouldUnregister: true,
-  });
-
   const breadCrumbs = [
     {
       label: "Home",
@@ -143,9 +130,7 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
     },
   ];
 
-  const handleRemove = (index: number) => {
-    remove(index);
-  };
+  console.log(problemDetail)
 
 
   return (
@@ -177,7 +162,31 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
                       placeholder="Enter problem title"
                     />
                   </motion.div>
-                  <motion.div
+                  <motion.div variants={itemVariants}>
+                    <RHFSelect
+                      name="difficultyLevel"
+                      label="Difficulty"
+                      required
+                      options={[
+                        { label: "Easy", value: "EASY" },
+                        { label: "Medium", value: "MEDIUM" },
+                        { label: "Hard", value: "HARD" },
+                      ]}
+                    />
+                  </motion.div>
+                </Col>
+
+                <Col xs={24} md={12}>
+                  <motion.div variants={itemVariants}>
+                    <RHFInput
+                      name="problemCode"
+                      label="Problem code"
+                      placeholder="Enter problem code"
+                      readOnly={true}
+                      required
+                    />
+                  </motion.div>
+                   <motion.div
                     className="flex flex-row gap-2"
                     variants={itemVariants}
                   >
@@ -196,30 +205,6 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
                       addonAfter="MB"
                       required
                     />
-                  </motion.div>
-                </Col>
-
-                <Col xs={24} md={12}>
-                  <motion.div variants={itemVariants}>
-                    <RHFSelect
-                      name="difficulty"
-                      label="Difficulty"
-                      required
-                      options={[
-                        { label: "Easy", value: "EASY" },
-                        { label: "Medium", value: "MEDIUM" },
-                        { label: "Hard", value: "HARD" },
-                      ]}
-                    />
-                  </motion.div>
-                  <motion.div variants={itemVariants}>
-                    <Flex align="center" gap={3}>
-                      <RHFSwitch name="active" />
-                      <div>
-                        <Title level={5}>{t("publish_title")}</Title>
-                        <Text>{t("publish_description")}</Text>
-                      </div>
-                    </Flex>
                   </motion.div>
                 </Col>
 
@@ -243,19 +228,6 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
                 <h3 className="font-semibold">
                   Problem Test Cases & Constraints
                 </h3>
-                <CancelButton
-                  title="Add Test cases"
-                  onClickWithE={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    append({
-                      input: "",
-                      expectedOutput: "",
-                      orderIndex: fields.length + 1,
-                      isSample: false,
-                    });
-                  }}
-                />
               </div>
 
               <motion.div variants={itemVariants} className="mb-4">
@@ -269,45 +241,7 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
                 </div>
               </motion.div>
 
-              {fields.map((f: any, i) => (
-                  <motion.div
-                    key={f.fieldId}
-                    variants={cardVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="mb-4"
-                  >
-                    <Card size="small" className="space-y-2">
-                      <Row gutter={[16, 16]}>
-                        <Col xs={24} md={12}>
-                          <RHFInput
-                            name={`testCases.${i}.input`}
-                            placeholder="Enter your test case input"
-                            label="Test Case Input"
-                          />
-                        </Col>
-
-                        <Col xs={24} md={12}>
-                          <RHFInput
-                            name={`testCases.${i}.expectedOutput`}
-                            placeholder="Enter your test case output"
-                            label="Test Case Output"
-                          />
-                        </Col>
-                      </Row>
-
-                      <DangerButton
-                        title="Remove"
-                        onClickWithE={(e: React.MouseEvent<HTMLElement>) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleRemove(i);
-                        }}
-                      />
-                    </Card>
-                  </motion.div>
-                ))}
+              <ListTestCase testcases={testCases} visible={false} />
             </Card>
           </motion.div>
 

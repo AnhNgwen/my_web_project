@@ -14,15 +14,12 @@ export const editProblemFormSchema = z.object({
 
   difficultyLevel: z.string().min(1, "Difficulty is required"),
 
-  active: z.boolean(),
 
   timeLimit: z.number().positive("Time limit must be greater than 0"),
 
   memoryLimit: z.number().positive("Memory limit must be greater than 0"),
 
   description: z.string().min(1, "Description is required"),
-
-  testCases: z.array(sampleSchema).min(1, "At least one test case is required"),
 
   constraints: z.string().min(1, "Constraints is required"),
 

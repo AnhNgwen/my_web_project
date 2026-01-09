@@ -1,15 +1,15 @@
 "use client";
 
+import RouteLoading from "@/components/shared/RouteLoading";
 import UserTable from "@/components/table/UserTable";
 import useGetListUser from "@/hook/user-info/useGetListUser";
 import "./style.scss";
 
 export default function AdminManagementMock() {
-  const { listUser, isError, error, handleFilterChange } = useGetListUser();
+  const { listUser, handleFilterChange } = useGetListUser();
 
-  if (isError) {
-    console.error("AdminManagement - error:", error);
-  }
+
+  if(!listUser) return <RouteLoading message="Đang tải admin..."/>
 
   return (
     <div className="p-6 w-full mx-auto">

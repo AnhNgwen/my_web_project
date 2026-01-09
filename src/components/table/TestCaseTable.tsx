@@ -14,9 +14,10 @@ import { tableContainerVariants } from "./motion";
 
 type Props = {
   data: TestCase[];
+  visible?: boolean
 };
 
-export default function TestCaseTable({ data }: Props) {
+export default function TestCaseTable({ data, visible = true }: Props) {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [draft, setDraft] = useState<{
     input: string;
@@ -204,7 +205,7 @@ export default function TestCaseTable({ data }: Props) {
 
   return (
     <div className="bg-white p-4 rounded-lg flex flex-col gap-3">
-      <div className="flex justify-end gap-2">
+      {visible && <div className="flex justify-end gap-2">
         <Input
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -212,7 +213,7 @@ export default function TestCaseTable({ data }: Props) {
           className="text-base w-[220px]"
           placeholder="Tìm kiếm"
         />
-      </div>
+      </div>}
 
       <AnimatePresence mode="wait">
         <motion.div

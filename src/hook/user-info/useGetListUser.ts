@@ -7,11 +7,11 @@ export default function useGetListUser() {
     pageNumber: 0,
     pageSize: 10,
   });
-  const { data, isLoading, isError, error } = useListUser(filter);
+  const { data } = useListUser(filter);
 
   const handleFilterChange = (newFilter: FilterOptions) => {
     setFilter(newFilter);
   };
 
-  return { listUser: data, isLoading, isError, error, handleFilterChange };
+  return { listUser: data, handleFilterChange };
 }
