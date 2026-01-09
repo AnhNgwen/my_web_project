@@ -61,7 +61,7 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
 
   const { problemDetail } = useProblemDetail(id);
   const { listTestCase } = useGetListTestCase(id);
-  const {submitProblemAsync, isLoading} = useSubmitProblem()
+  const { submitProblemAsync, isLoading } = useSubmitProblem();
 
   const sampleTestCase = useMemo(
     () => listTestCase?.content.find((item) => item.sample === true),
@@ -89,7 +89,7 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
       language: language,
       code: code,
     };
-    await submitProblemAsync({payload})
+    await submitProblemAsync({ payload });
   };
 
   const breadCrumbs = [

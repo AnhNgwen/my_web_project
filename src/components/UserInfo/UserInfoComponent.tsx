@@ -62,40 +62,38 @@ const loadingVariants = {
   exit: { opacity: 0 },
 };
 
-
 export default function UserInfoComponent({
-  userName, role
+  userName,
+  role,
 }: {
   userName: string;
   role: string;
 }) {
-
   const { userInfo } = useUserInfo(userName);
   const { updateUserInfoAsync } = useUpdateUserInfo();
 
-
   const methods = useForm({
     defaultValues: {
-      email: userInfo?.email || '',
-      fullName: userInfo?.fullName || '',
-      phone: userInfo?.phone || '',
-      bio: userInfo?.bio || '',
-      avatarUrl: userInfo?.avatarUrl || '',
-      github: userInfo?.github || '',
-      facebook: userInfo?.facebook || '',
+      email: userInfo?.email || "",
+      fullName: userInfo?.fullName || "",
+      phone: userInfo?.phone || "",
+      bio: userInfo?.bio || "",
+      avatarUrl: userInfo?.avatarUrl || "",
+      github: userInfo?.github || "",
+      facebook: userInfo?.facebook || "",
       birthday: userInfo?.birthday || null,
     },
   });
 
   useEffect(() => {
     methods.reset({
-      email: userInfo?.email || '',
-      fullName: userInfo?.fullName || '',
-      phone: userInfo?.phone || '',
-      bio: userInfo?.bio || '',
-      avatarUrl: userInfo?.avatarUrl || '',
-      github: userInfo?.github || '',
-      facebook: userInfo?.facebook || '',
+      email: userInfo?.email || "",
+      fullName: userInfo?.fullName || "",
+      phone: userInfo?.phone || "",
+      bio: userInfo?.bio || "",
+      avatarUrl: userInfo?.avatarUrl || "",
+      github: userInfo?.github || "",
+      facebook: userInfo?.facebook || "",
       birthday: userInfo?.birthday || null,
     });
   }, [userInfo]);
@@ -106,10 +104,10 @@ export default function UserInfoComponent({
     stopLoading();
   }, [stopLoading]);
 
-  const {  handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = async (values: z.infer<typeof UserProfileSchema>) => {
-    console.log(values)
+    console.log(values);
     startLoading();
     await updateUserInfoAsync(values);
     stopLoading();
@@ -174,7 +172,9 @@ export default function UserInfoComponent({
                   <Tag color="green">{role.toUpperCase()}</Tag>
                 </motion.div>
                 <motion.div variants={tagVariants}>
-                  <Tag color="blue"><span className="font-semibold">ACTIVE</span></Tag>
+                  <Tag color="blue">
+                    <span className="font-semibold">ACTIVE</span>
+                  </Tag>
                 </motion.div>
               </motion.div>
             </div>
@@ -217,13 +217,25 @@ export default function UserInfoComponent({
                 </motion.div>
 
                 <motion.div variants={itemVariants}>
-                  <RHFInput name="github" label="Github" placeholder="Nhập github"/>
+                  <RHFInput
+                    name="github"
+                    label="Github"
+                    placeholder="Nhập github"
+                  />
                 </motion.div>
                 <motion.div variants={itemVariants}>
-                  <RHFInput name="facebook" label="Facebook" placeholder="Nhập facebook" />
+                  <RHFInput
+                    name="facebook"
+                    label="Facebook"
+                    placeholder="Nhập facebook"
+                  />
                 </motion.div>
                 <motion.div variants={itemVariants}>
-                  <RHFDatePicker name="birthday" label="Ngày sinh (hiện BE đang lỗi)" readOnly={true}/>
+                  <RHFDatePicker
+                    name="birthday"
+                    label="Ngày sinh (hiện BE đang lỗi)"
+                    readOnly={true}
+                  />
                 </motion.div>
               </motion.div>
 

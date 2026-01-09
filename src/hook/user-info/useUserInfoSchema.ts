@@ -5,7 +5,6 @@ export const UserProfileSchema = z.object({
   // account (readonly nhưng vẫn validate)
   email: z.string().email("Email không hợp lệ"),
 
-
   // profile
   fullName: z.string().min(1, "Họ và tên là bắt buộc"),
   phone: z
@@ -16,7 +15,7 @@ export const UserProfileSchema = z.object({
   avatarUrl: z.string().optional(),
   github: z.string().optional(),
   facebook: z.string().optional(),
-  birthday: z.date()
+  birthday: z.date(),
 });
 
 export type UserProfileFormValues = z.infer<typeof UserProfileSchema>;

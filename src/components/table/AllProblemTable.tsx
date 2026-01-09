@@ -6,10 +6,7 @@ import { useUpdateStateProblem } from "@/hook/problem/useUpdateStateProblem";
 // ExerciseTable.tsx
 import { useDeleteProblem } from "@/hook/problem/useDeleteProblem";
 import { Problem } from "@/services/rest/problem/get-active-problem/type";
-import {
-  MoreOutlined,
-  TrophyOutlined
-} from "@ant-design/icons";
+import { MoreOutlined, TrophyOutlined } from "@ant-design/icons";
 import { Dropdown, MenuProps, Switch, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useRouter } from "next/navigation";
@@ -34,7 +31,6 @@ export default function AllProblemTable({
   totalElements,
   handlePageChange,
 }: Props) {
-
   const { updateStateProblemAsync } = useUpdateStateProblem();
   const { deleteProblemAsync } = useDeleteProblem();
 
@@ -43,19 +39,18 @@ export default function AllProblemTable({
   const stopLoading = useLoadingStore((state) => state.stopLoading);
 
   const handleDelete = async () => {
-      if (!selectedProblem) return;
+    if (!selectedProblem) return;
 
-      startLoading();
-      await deleteProblemAsync({
-        id: selectedProblem.problemId,
-        link: `${BASE_URL}/problems`,
-      });
-      stopLoading();
+    startLoading();
+    await deleteProblemAsync({
+      id: selectedProblem.problemId,
+      link: `${BASE_URL}/problems`,
+    });
+    stopLoading();
 
-      setOpenDeleteModal(false);
-      setSelectedProblem(null);
-};
-
+    setOpenDeleteModal(false);
+    setSelectedProblem(null);
+  };
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [selectedProblem, setSelectedProblem] = useState<Problem | null>(null);
@@ -109,9 +104,9 @@ export default function AllProblemTable({
         <Switch
           checked={active}
           onChange={async () => {
-            startLoading()
+            startLoading();
             await updateStateProblemAsync({ problemId: record.problemId });
-            stopLoading()
+            stopLoading();
           }}
         />
       ),
@@ -160,8 +155,8 @@ export default function AllProblemTable({
             label: "Xóa",
             danger: true,
             onClick: () => {
-             setSelectedProblem(record);
-             setOpenDeleteModal(true);
+              setSelectedProblem(record);
+              setOpenDeleteModal(true);
             },
           },
         ];
@@ -177,28 +172,28 @@ export default function AllProblemTable({
 
   return (
     <>
-    <CommonTable
-      columns={columns}
-      dataSource={data}
-      rowKey="problemId"
-      totalElements={totalElements}
-      headerActions={
-        <PublishButton
-          title="Thêm mới"
-          onClick={() => {
-            startLoading();
-            router.push(addNewProblemLink);
-          }}
-        />
-      }
-      handlePageChange={handlePageChange}
-    />
+      <CommonTable
+        columns={columns}
+        dataSource={data}
+        rowKey="problemId"
+        totalElements={totalElements}
+        headerActions={
+          <PublishButton
+            title="Thêm mới"
+            onClick={() => {
+              startLoading();
+              router.push(addNewProblemLink);
+            }}
+          />
+        }
+        handlePageChange={handlePageChange}
+      />
       <ConfirmDelete
         open={openDeleteModal}
-         onCancel={() => {
-        setOpenDeleteModal(false);
-        setSelectedProblem(null);
-      }}
+        onCancel={() => {
+          setOpenDeleteModal(false);
+          setSelectedProblem(null);
+        }}
         onConfirm={handleDelete}
       />
     </>

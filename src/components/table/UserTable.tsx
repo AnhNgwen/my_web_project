@@ -12,10 +12,14 @@ import CommonTable from "./CommonTable";
 type Props = {
   data: User[];
   totalElements: number;
-  handlePageChange: (filter: FilterOptions) => void
+  handlePageChange: (filter: FilterOptions) => void;
 };
 
-export default function UserTable({ data, totalElements, handlePageChange }: Props) {
+export default function UserTable({
+  data,
+  totalElements,
+  handlePageChange,
+}: Props) {
   const [grantModalOpen, setGrantModalOpen] = useState<boolean>(false);
   const [revokeModalOpen, setRevokeModalOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
@@ -27,10 +31,10 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
   const startLoading = useLoadingStore((state) => state.startLoading);
   const stopLoading = useLoadingStore((state) => state.stopLoading);
 
-  const {updateRoleAsync} = useUpdateUserRole();
+  const { updateRoleAsync } = useUpdateUserRole();
 
-  console.log(tag)
-  console.log(problem)
+  console.log(tag);
+  console.log(problem);
 
   const columns = [
     { title: "Username", dataIndex: "username", key: "username" },
@@ -122,19 +126,26 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
           )}
         </div>
         <div className="flex gap-2 mt-4 justify-end">
-        <DangerButton title="Cancel" onClick={() => {
-          setGrantModalOpen(false)
-          }}/>
-        <PublishButton title="Grant" onClick={async () => {
-          startLoading()
-          await updateRoleAsync({
-            username: selectedUser?.username || '',
-            role: "ADMIN",
-            action: "GRANT",
-          })
-          stopLoading()
-          setGrantModalOpen(false)
-          }} isSubmit={false}/>
+          <DangerButton
+            title="Cancel"
+            onClick={() => {
+              setGrantModalOpen(false);
+            }}
+          />
+          <PublishButton
+            title="Grant"
+            onClick={async () => {
+              startLoading();
+              await updateRoleAsync({
+                username: selectedUser?.username || "",
+                role: "ADMIN",
+                action: "GRANT",
+              });
+              stopLoading();
+              setGrantModalOpen(false);
+            }}
+            isSubmit={false}
+          />
         </div>
       </Modal>
 
@@ -154,20 +165,27 @@ export default function UserTable({ data, totalElements, handlePageChange }: Pro
           onChange={(e) => setReason(e.target.value)}
           placeholder="Nhập lý do thu hồi quyền"
         />
-         <div className="flex gap-2 mt-4 justify-end">
-         <DangerButton title="Cancel" onClick={() => {
-          setRevokeModalOpen(false)
-          }}/>
-        <PublishButton title="Revoke" onClick={async () => {
-          startLoading()
-          await updateRoleAsync({
-            username: selectedUser?.username || '',
-            role: "USER",
-            action: "REVOKE",
-          })
-          stopLoading()
-          setRevokeModalOpen(false)
-          }} isSubmit={false}/>
+        <div className="flex gap-2 mt-4 justify-end">
+          <DangerButton
+            title="Cancel"
+            onClick={() => {
+              setRevokeModalOpen(false);
+            }}
+          />
+          <PublishButton
+            title="Revoke"
+            onClick={async () => {
+              startLoading();
+              await updateRoleAsync({
+                username: selectedUser?.username || "",
+                role: "USER",
+                action: "REVOKE",
+              });
+              stopLoading();
+              setRevokeModalOpen(false);
+            }}
+            isSubmit={false}
+          />
         </div>
       </Modal>
     </>

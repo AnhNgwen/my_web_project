@@ -76,7 +76,11 @@ type EditFormProps = {
   problemId: string;
 };
 
-export default function EditForm({ problemDetail, testCases, problemId }: EditFormProps) {
+export default function EditForm({
+  problemDetail,
+  testCases,
+  problemId,
+}: EditFormProps) {
   const methods = useForm<EditProblemFormValues>({
     resolver: zodResolver(editProblemFormSchema),
     defaultValues: {
@@ -92,35 +96,39 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
     },
   });
 
-  const { control, handleSubmit, formState: { errors } } = methods;
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
   const t = useTranslations("problem");
   const router = useRouter();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [confirmModalLink, setConfirmModalLink] = useState<string>("#");
- const { updateProblemAsync } = useUpdateProblem();
-  const startLoading = useLoadingStore((state) => state.startLoading)
-  const stopLoading = useLoadingStore((state) => state.stopLoading)
+  const { updateProblemAsync } = useUpdateProblem();
+  const startLoading = useLoadingStore((state) => state.startLoading);
+  const stopLoading = useLoadingStore((state) => state.stopLoading);
 
   useEffect(() => {
-  const messages = getErrorMessages(errors);
-  if (messages.length === 0) return;
+    const messages = getErrorMessages(errors);
+    if (messages.length === 0) return;
 
-  const showMessages = async () => {
-    for (const msg of messages) {
-      message.error(msg);
-      await new Promise((r) => setTimeout(r, 1000)); // thời gian hiển thị
-    }
-  };
+    const showMessages = async () => {
+      for (const msg of messages) {
+        message.error(msg);
+        await new Promise((r) => setTimeout(r, 1000)); // thời gian hiển thị
+      }
+    };
 
-  showMessages();
-}, [errors]);
+    showMessages();
+  }, [errors]);
 
   const onSubmit = async (values: EditProblemFormValues) => {
     console.log("Submit payload to API:", values);
-    startLoading()
-    await updateProblemAsync({payload: values, problemId: problemId});
+    startLoading();
+    await updateProblemAsync({ payload: values, problemId: problemId });
     router.push("/admin/home");
-    stopLoading()
+    stopLoading();
   };
 
   const { fields, append, remove } = useFieldArray({
@@ -144,7 +152,6 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
   const handleRemove = (index: number) => {
     remove(index);
   };
-
 
   return (
     <FormProvider {...methods}>
@@ -260,58 +267,59 @@ export default function EditForm({ problemDetail, testCases, problemId }: EditFo
                 <RHFInput name="constraints" label="Constraints" required />
               </motion.div>
 
-                {fields.map((f: any, i) => (
-                  <motion.div
-                    key={f.fieldId}
-                    variants={cardVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="mb-4"
-                  >
-                    <Card size="small" className="space-y-2">
-                      <Row gutter={[16, 16]}>
-                        <Col xs={24} md={10}>
-                          <RHFInput
-                            name={`testCases.${i}.input`}
-                            placeholder="Enter your test case input"
-                            label="Test Case Input"
-                          />
-                        </Col>
+              {fields.map((f: any, i) => (
+                <motion.div
+                  key={f.fieldId}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="mb-4"
+                >
+                  <Card size="small" className="space-y-2">
+                    <Row gutter={[16, 16]}>
+                      <Col xs={24} md={10}>
+                        <RHFInput
+                          name={`testCases.${i}.input`}
+                          placeholder="Enter your test case input"
+                          label="Test Case Input"
+                        />
+                      </Col>
 
-                        <Col xs={24} md={10}>
-                          <RHFInput
-                            name={`testCases.${i}.expectedOutput`}
-                            placeholder="Enter your test case output"
-                            label="Test Case Output"
-                          />
-                        </Col>
+                      <Col xs={24} md={10}>
+                        <RHFInput
+                          name={`testCases.${i}.expectedOutput`}
+                          placeholder="Enter your test case output"
+                          label="Test Case Output"
+                        />
+                      </Col>
 
-                        <Col xs={24} md={4}>
-                          <div className="flex items-center gap-2">
-                            <RHFSwitch name={`testCases.${i}.isSample`} />
-                            <span className="text-sm font-medium">
-                              Is Sample
-                            </span>
-                          </div>
-                        </Col>
-                      </Row>
+                      <Col xs={24} md={4}>
+                        <div className="flex items-center gap-2">
+                          <RHFSwitch name={`testCases.${i}.isSample`} />
+                          <span className="text-sm font-medium">Is Sample</span>
+                        </div>
+                      </Col>
+                    </Row>
 
-                      <DangerButton
-                        title="Remove"
-                        onClickWithE={(e: React.MouseEvent<HTMLElement>) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleRemove(i);
-                        }}
-                      />
-                    </Card>
-                  </motion.div>
-                ))}
+                    <DangerButton
+                      title="Remove"
+                      onClickWithE={(e: React.MouseEvent<HTMLElement>) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleRemove(i);
+                      }}
+                    />
+                  </Card>
+                </motion.div>
+              ))}
             </Card>
           </motion.div>
 
-          <motion.div className="flex justify-end gap-3" variants={cardVariants}>
+          <motion.div
+            className="flex justify-end gap-3"
+            variants={cardVariants}
+          >
             <CancelButton
               title="Cancel"
               onClick={() => router.replace("/admin/home")}

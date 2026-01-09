@@ -59,7 +59,11 @@ const codeSectionVariants = {
   },
 };
 
-export default function TestCasePage({ params }: { params: { id: string, assigmentId: string } }) {
+export default function TestCasePage({
+  params,
+}: {
+  params: { id: string; assigmentId: string };
+}) {
   const [showCode, setShowCode] = useState(false);
 
   const { id, assigmentId } = params;
@@ -299,14 +303,23 @@ export default function TestCasePage({ params }: { params: { id: string, assigme
 
               <motion.div variants={cardVariants}>
                 <InfoRow label="Đạt">
-                  {submissionDetail.passedTestcases}/{submissionDetail.totalTestcases} test cases
+                  {submissionDetail.passedTestcases}/
+                  {submissionDetail.totalTestcases} test cases
                 </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
-                <InfoRow label="Điểm">{(submissionDetail.passedTestcases / submissionDetail.totalTestcases * 100).toFixed(2)} </InfoRow>
+                <InfoRow label="Điểm">
+                  {(
+                    (submissionDetail.passedTestcases /
+                      submissionDetail.totalTestcases) *
+                    100
+                  ).toFixed(2)}{" "}
+                </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
-                <InfoRow label="Ngôn ngữ">{mapLanguage(submissionDetail.language)}</InfoRow>
+                <InfoRow label="Ngôn ngữ">
+                  {mapLanguage(submissionDetail.language)}
+                </InfoRow>
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Tổng thời gian chạy">
@@ -315,7 +328,9 @@ export default function TestCasePage({ params }: { params: { id: string, assigme
               </motion.div>
               <motion.div variants={cardVariants}>
                 <InfoRow label="Thời gian tạo">
-                  {dayjs(submissionDetail?.judgedAt).format("DD/MM/YYYY HH:mm:ss")}
+                  {dayjs(submissionDetail?.judgedAt).format(
+                    "DD/MM/YYYY HH:mm:ss"
+                  )}
                 </InfoRow>
               </motion.div>
             </motion.div>

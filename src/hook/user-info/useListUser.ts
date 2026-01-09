@@ -6,7 +6,7 @@ export function useListUser(filter: FilterOptions) {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["USER_LIST", filter.pageNumber, filter.pageSize],
     queryFn: async () => {
-      const result = await getListUser(filter); 
+      const result = await getListUser(filter);
       return result;
     },
     enabled: true,

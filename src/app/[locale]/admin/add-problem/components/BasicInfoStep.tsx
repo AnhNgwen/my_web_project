@@ -4,7 +4,6 @@ import { difficultyOptions } from "@/data/mock";
 import { Col, Row } from "antd";
 import { motion } from "framer-motion";
 
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -27,7 +26,6 @@ const itemVariants = {
 };
 
 export default function BasicInfoStep() {
-
   return (
     <motion.div initial="hidden" animate="visible" variants={containerVariants}>
       <Row gutter={[16, 16]}>
@@ -57,7 +55,6 @@ export default function BasicInfoStep() {
               required={true}
             />
           </motion.div>
-          
         </Col>
 
         <Col xs={24} md={12}>

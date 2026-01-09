@@ -9,9 +9,18 @@ export function useUpdateStateProblem() {
       return res;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["LIST_PROBLEM"], exact: false });
-      queryClient.invalidateQueries({ queryKey: ["LIST_ACTIVE_PROBLEM"], exact: false });
-      queryClient.invalidateQueries({ queryKey: ["PROBLEM_DETAIL"], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: ["LIST_PROBLEM"],
+        exact: false,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["LIST_ACTIVE_PROBLEM"],
+        exact: false,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["PROBLEM_DETAIL"],
+        exact: false,
+      });
     },
   });
   return {

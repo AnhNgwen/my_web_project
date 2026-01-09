@@ -3,16 +3,19 @@ import { ProblemResponse } from "../get-active-problem/type";
 
 import { BASE_URL, FilterOptions } from "../../constant";
 
-export async function getListProblem(filter?: FilterOptions): Promise<ProblemResponse> {
-  const res = await axios.post(
-    `${window.location.origin}/api/get-list`, {
-      link: `${BASE_URL}/problems/me?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
-    }
-  );
+export async function getListProblem(
+  filter?: FilterOptions
+): Promise<ProblemResponse> {
+  const res = await axios.post(`${window.location.origin}/api/get-list`, {
+    link: `${BASE_URL}/problems/me?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
+  });
   if (!res.data.content) return {} as ProblemResponse;
 
-  return {...res.data, content: res.data.content.map((item: ProblemResponse) => ({
-    ...item,
-    maxScore: 100,
-  }))};
+  return {
+    ...res.data,
+    content: res.data.content.map((item: ProblemResponse) => ({
+      ...item,
+      maxScore: 100,
+    })),
+  };
 }

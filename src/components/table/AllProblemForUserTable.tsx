@@ -9,7 +9,7 @@ import {
   CloseCircleFilled,
   FormOutlined,
   TrophyOutlined,
-  WarningFilled
+  WarningFilled,
 } from "@ant-design/icons";
 import { Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
@@ -83,7 +83,7 @@ export default function AllProblemForUserTable({
           <span className="text-xl font-semibold">{score}</span>
         </Tag>
       ),
-    }, 
+    },
     {
       title: "Điểm tối đa",
       dataIndex: "maxScore",
@@ -98,7 +98,7 @@ export default function AllProblemForUserTable({
           <span className="text-xl font-semibold">{score}</span>
         </Tag>
       ),
-    }, 
+    },
     {
       title: "Pass",
       dataIndex: "bestStatus",
@@ -119,7 +119,7 @@ export default function AllProblemForUserTable({
             color: "orange",
             icon: <ClockCircleFilled />,
             label: "Time Limit",
-            },
+          },
           CE: {
             color: "volcano",
             icon: <WarningFilled />,
@@ -140,10 +140,9 @@ export default function AllProblemForUserTable({
             <span className="text-base">{s.label}</span>
           </Tag>
         );
-      }
+      },
     },
   ];
-
 
   return (
     <CommonTable

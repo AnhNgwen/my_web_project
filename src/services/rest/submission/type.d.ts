@@ -8,7 +8,7 @@ export interface PerTestResults {
 export interface Submission {
   errorMessage: string;
   executionTime: number | null;
-  judgedAt: string;        
+  judgedAt: string;
   language: string;
   memoryUsed: number | null;
   passedTestcases: number;
@@ -16,7 +16,7 @@ export interface Submission {
   problemTitle: string;
   status: string;
   submissionId: number;
-  submittedAt: string; 
+  submittedAt: string;
   totalTestcases: number;
   username: string;
   code: string;

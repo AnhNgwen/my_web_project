@@ -57,7 +57,7 @@ export default function MainShell({ children }: { children: React.ReactNode }) {
       <Layout className="flex-1 flex min-h-0 ">
         <Sidebar
           collapsed={collapsed}
-          mobileOpen={mobileOpen} 
+          mobileOpen={mobileOpen}
           onMobileClose={handleMobileClose}
           onToggleSider={handleToggleSider}
           items={adminItems}

@@ -18,8 +18,8 @@ interface CommonTableProps<T> {
   headerActions?: React.ReactNode;
   defaultPageSize?: number;
   pageSizeOptions?: string[];
-  totalElements: number
-  handlePageChange?: ({pageNumber, pageSize}: FilterOptions) => void
+  totalElements: number;
+  handlePageChange?: ({ pageNumber, pageSize }: FilterOptions) => void;
 }
 
 export default function CommonTable<T extends object>({
@@ -33,7 +33,7 @@ export default function CommonTable<T extends object>({
   defaultPageSize = 5,
   pageSizeOptions = ["5", "10", "20", "50"],
   totalElements,
-  handlePageChange
+  handlePageChange,
 }: CommonTableProps<T>) {
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(defaultPageSize);
@@ -89,7 +89,7 @@ export default function CommonTable<T extends object>({
                 setPage(p);
                 setPageSize(ps);
                 if (handlePageChange) {
-                  handlePageChange({pageNumber: p - 1, pageSize: ps});
+                  handlePageChange({ pageNumber: p - 1, pageSize: ps });
                 }
               },
             }}

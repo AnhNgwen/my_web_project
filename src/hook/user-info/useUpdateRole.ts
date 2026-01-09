@@ -11,7 +11,10 @@ export function useUpdateUserRole() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["USER_LIST"], exact: false });
-      queryClient.invalidateQueries({ queryKey: ["USER_DETAIL"], exact: false });
+      queryClient.invalidateQueries({
+        queryKey: ["USER_DETAIL"],
+        exact: false,
+      });
     },
   });
   return {

@@ -8,10 +8,7 @@ export async function addProblem(
   payload: CreateProblem
 ): Promise<AddProblemResult> {
   try {
-    const res = await axios.post(
-      "/api/problem/add-problem",
-      payload
-    );
+    const res = await axios.post("/api/problem/add-problem", payload);
 
     return { ok: true, data: res.data };
   } catch (error) {

@@ -74,50 +74,50 @@ export default function TestcaseManager() {
         <RHFInput name="constraints" label="Contraints" required />
       </motion.div>
 
-        {fields.map((f, i) => (
-          <motion.div
-            key={f.id}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            layout
-          >
-            <Card size="small" className="space-y-2">
-              <Row gutter={[16, 16]}>
-                <Col xs={24} md={12}>
-                  <RHFInput
-                    name={`testCases.${i}.input`}
-                    placeholder="Enter your test case input"
-                    label="Test Case Input"
-                  />
-                </Col>
-
-                <Col xs={24} md={12}>
-                  <RHFInput
-                    name={`testCases.${i}.expectedOutput`}
-                    placeholder="Enter your test case output"
-                    label="Test Case  Output"
-                  />
-                </Col>
-              </Row>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <DangerButton
-                  title="Remove"
-                  onClickWithE={(e: React.MouseEvent<HTMLElement>) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    remove(i);
-                  }}
+      {fields.map((f, i) => (
+        <motion.div
+          key={f.id}
+          variants={cardVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          layout
+        >
+          <Card size="small" className="space-y-2">
+            <Row gutter={[16, 16]}>
+              <Col xs={24} md={12}>
+                <RHFInput
+                  name={`testCases.${i}.input`}
+                  placeholder="Enter your test case input"
+                  label="Test Case Input"
                 />
-              </motion.div>
-            </Card>
-          </motion.div>
-        ))}
+              </Col>
+
+              <Col xs={24} md={12}>
+                <RHFInput
+                  name={`testCases.${i}.expectedOutput`}
+                  placeholder="Enter your test case output"
+                  label="Test Case  Output"
+                />
+              </Col>
+            </Row>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DangerButton
+                title="Remove"
+                onClickWithE={(e: React.MouseEvent<HTMLElement>) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  remove(i);
+                }}
+              />
+            </motion.div>
+          </Card>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }

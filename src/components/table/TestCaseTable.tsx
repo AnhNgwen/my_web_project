@@ -1,9 +1,6 @@
 "use client";
 import { TestCase } from "@/services/rest/test-case/get-test-case/type";
-import {
-    MoreOutlined,
-    SearchOutlined,
-} from "@ant-design/icons";
+import { MoreOutlined, SearchOutlined } from "@ant-design/icons";
 import { Dropdown, Input, MenuProps, Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,13 +12,25 @@ type Props = {
   data: TestCase[];
 };
 
-export default function TestCaseTable({
-  data,
-}: Props) {
+export default function TestCaseTable({ data }: Props) {
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [draft, setDraft] = useState<{
+    input: string;
+    expectedOutput: string;
+  } | null>(null);
+
+  const startEdit = (record: TestCase) => {
+    setEditingId(record.testcaseId);
+    setDraft({
+      input: record.input,
+      expectedOutput: record.expectedOutput,
+    });
+  };
+
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
   const [searchValue, setSearchValue] = useState<string>("");
-    const testcaseColumns: ColumnsType<TestCase> = [
+  const testcaseColumns: ColumnsType<TestCase> = [
     // ... keep your existing column configs, maybe just tweak labels if you want ...
     {
       title: "ID",
@@ -30,22 +39,53 @@ export default function TestCaseTable({
       align: "center",
       sorter: (a: TestCase, b: TestCase) => a.testcaseId - b.testcaseId,
     },
-
     {
       title: "Input",
-      dataIndex: "input",
       key: "input",
-      render: (text: string) => (
-        <pre className="bg-gray-100 px-2 py-1 rounded text-sm">{text}</pre>
-      ),
+      render: (_, record) => {
+        const isEditing = editingId === record.testcaseId;
+
+        return (
+          <Input.TextArea
+            autoSize
+            readOnly={!isEditing}
+            value={isEditing ? draft?.input : record.input}
+            className={`text-sm ${
+              isEditing ? "bg-white" : "bg-gray-100 cursor-pointer"
+            }`}
+            onClick={() => !isEditing && startEdit(record)}
+            onChange={(e) =>
+              setDraft((prev) =>
+                prev ? { ...prev, input: e.target.value } : prev
+              )
+            }
+          />
+        );
+      },
     },
     {
       title: "Output",
-      dataIndex: "expectedOutput",
       key: "expectedOutput",
-      render: (text: string) => (
-        <pre className="bg-gray-100 px-2 py-1 rounded text-sm">{text}</pre>
-      ),
+      render: (_, record) => {
+        const isEditing = editingId === record.testcaseId;
+
+        return (
+          <Input.TextArea
+            autoSize
+            readOnly={!isEditing}
+            value={isEditing ? draft?.expectedOutput : record.expectedOutput}
+            className={`text-sm ${
+              isEditing ? "bg-white" : "bg-gray-100 cursor-pointer"
+            }`}
+            onClick={() => !isEditing && startEdit(record)}
+            onChange={(e) =>
+              setDraft((prev) =>
+                prev ? { ...prev, expectedOutput: e.target.value } : prev
+              )
+            }
+          />
+        );
+      },
     },
     {
       title: "Classify",
@@ -64,14 +104,51 @@ export default function TestCaseTable({
       align: "center",
       width: 100,
       render: (_, record) => {
+        const isEditing = editingId === record.testcaseId;
+        const isValid = draft?.input.trim() && draft?.expectedOutput.trim();
+
+        if (isEditing) {
+          return (
+            <div className="flex justify-center gap-3">
+              <button
+                disabled={!isValid}
+                className={`text-green-600 text-xl ${
+                  !isValid ? "opacity-40 cursor-not-allowed" : ""
+                }`}
+                onClick={() => {
+                  console.log("UPDATE TESTCASE", {
+                    testcaseId: record.testcaseId,
+                    input: draft!.input,
+                    expectedOutput: draft!.expectedOutput,
+                  });
+
+                  setEditingId(null);
+                  setDraft(null);
+                }}
+              >
+                ✔
+              </button>
+
+              {/* ✖ CANCEL */}
+              <button
+                className="text-red-500 text-xl"
+                onClick={() => {
+                  setEditingId(null);
+                  setDraft(null);
+                }}
+              >
+                ✖
+              </button>
+            </div>
+          );
+        }
+
         const items: MenuProps["items"] = [
-            {
-              key: "edit",
-              label: "Chỉnh sửa",
-              onClick: () => {
-                console.log("Edit test case", record.testcaseId);
-              },
-            },
+          {
+            key: "edit",
+            label: "Chỉnh sửa",
+            onClick: () => startEdit(record),
+          },
           {
             key: "delete",
             label: "Xóa",
@@ -90,8 +167,6 @@ export default function TestCaseTable({
       },
     },
   ];
-
-  console.log(data)
 
   return (
     <div className="bg-white p-4 rounded-lg flex flex-col gap-3">

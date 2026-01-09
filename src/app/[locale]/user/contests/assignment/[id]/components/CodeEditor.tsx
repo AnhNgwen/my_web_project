@@ -16,7 +16,7 @@ type Props = {
     js: string;
     python: string;
   };
-  isLoading?: boolean
+  isLoading?: boolean;
 };
 
 export function CodeEditor({
@@ -25,7 +25,7 @@ export function CodeEditor({
   language,
   setLanguage,
   CODE_TEMPLATES,
-  isLoading = false
+  isLoading = false,
 }: Props) {
   return (
     <>
@@ -55,8 +55,8 @@ export function CodeEditor({
       />
 
       <div className="flex flex-row gap-2 items-end">
-        <CancelButton title="Chạy thử" disable={isLoading}/>
-        <PublishButton title="Nộp bài" isSubmit={true} isLoading={isLoading}/>
+        <CancelButton title="Chạy thử" disable={isLoading} />
+        <PublishButton title="Nộp bài" isSubmit={true} isLoading={isLoading} />
       </div>
     </>
   );

@@ -15,7 +15,9 @@ export default function AdminHomePage() {
 
   const { listProblem, handleFilterChange } = useGetListProblem();
 
-  const listActiveProblem = listProblem?.content?.filter((item) => item.active === true);
+  const listActiveProblem = listProblem?.content?.filter(
+    (item) => item.active === true
+  );
 
   const listUncctiveProblem = listProblem?.content?.filter(
     (item) => item.active === false

@@ -82,46 +82,46 @@ export default function StatementStep() {
         </motion.div>
       </motion.div>
 
-        {fields.map((f, i) => (
-          <motion.div
-            key={f.id}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            layout
-          >
-            <Card size="small" className="space-y-2">
-              <RHFTextArea
-                name={`samples.${i}.input`}
-                rows={3}
-                placeholder="Enter your sample input"
-                label="Sample Input"
-              />
+      {fields.map((f, i) => (
+        <motion.div
+          key={f.id}
+          variants={cardVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          layout
+        >
+          <Card size="small" className="space-y-2">
+            <RHFTextArea
+              name={`samples.${i}.input`}
+              rows={3}
+              placeholder="Enter your sample input"
+              label="Sample Input"
+            />
 
-              <RHFTextArea
-                name={`samples.${i}.expectedOutput`}
-                rows={3}
-                placeholder="Enter your sample output"
-                label="Sample Output"
+            <RHFTextArea
+              name={`samples.${i}.expectedOutput`}
+              rows={3}
+              placeholder="Enter your sample output"
+              label="Sample Output"
+            />
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DangerButton
+                title="Remove"
+                onClickWithE={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  remove(i);
+                }}
               />
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <DangerButton
-                  title="Remove"
-                  onClickWithE={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    remove(i);
-                  }}
-                />
-              </motion.div>
-            </Card>
-          </motion.div>
-        ))}
+            </motion.div>
+          </Card>
+        </motion.div>
+      ))}
     </motion.div>
   );
 }
