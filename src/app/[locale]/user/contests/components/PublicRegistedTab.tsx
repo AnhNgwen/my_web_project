@@ -1,77 +1,66 @@
 import useLoadingStore from "@/app/store/loadingStore";
-import { contestTableData } from "@/data/mock";
-import { SearchOutlined } from "@ant-design/icons";
-import { Card, Input, Table } from "antd";
+import CommonTable from "@/components/table/CommonTable";
+import useGetListAdmin from "@/hook/admin/useGetListAdmin";
+import { Admin } from "@/services/rest/admin/type";
+import { Card } from "antd";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import "../style.scss";
 
-export default function PublicRegistedTab() {
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(5);
-  const [searchValue, setSearchValue] = useState<string>("");
+export default function PublicContestTab() {
   const startLoading = useLoadingStore((state) => state.startLoading);
   const router = useRouter();
 
-  console.log(pageSize);
+  const {listAdmin, handleFilterChange} = useGetListAdmin()
 
-  const contestTableColumns = [
+
+
+  const AdminTableColumn = [
     {
-      title: "Cuộc thi",
-      dataIndex: "name",
-      key: "name",
-      render: (text: string) => (
+      title: "Lớp học",
+      dataIndex: "username",
+      key: "username",
+      render: (text: string, record: Admin) => (
         <span
           className="text-blue-600 hover:underline cursor-pointer"
           onClick={() => {
             startLoading();
-            router.push("/user/contests/detail/1");
+            router.push(`/user/contests/detail/${record.userId}`);
           }}
         >
-          {text}
+          Lớp học của thầy {text.split('@')[0]}
         </span>
       ),
     },
     {
       title: "Trạng thái",
-      dataIndex: "status",
+      dataIndex: "",
       key: "status",
+      render: () => (
+      <span
+        className="text-green-500 font-semibold"
+      >
+        Đang diễn ra
+      </span>
+    ),
     },
     {
       title: "Người quản lý",
-      dataIndex: "manager",
-      key: "manager",
+      dataIndex: "username",
+      key: "username",
+      render: (text: string) => (
+      <span
+        className="font-semibold uppercase"
+      >
+        {text.split('@')[0]}
+      </span>
+    ),
     },
   ];
 
   return (
     <Card>
       <div className="flex flex-col gap-3">
-        <div className="flex justify-end">
-          <Input
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            prefix={<SearchOutlined className="text-gray-400" />}
-            className="text-base w-[220px]"
-            placeholder="Tìm kiếm"
-          />
-        </div>
-
-        <Table
-          dataSource={contestTableData}
-          columns={contestTableColumns}
-          className="custom__table"
-          pagination={{
-            current: page,
-            pageSizeOptions: ["5", "10", "20", "50"],
-            total: contestTableData.length,
-            showSizeChanger: true,
-            onChange: (page, pageSize) => {
-              setPage(page);
-              setPageSize(pageSize);
-            },
-          }}
-        />
+       <CommonTable dataSource={listAdmin?.content || []} columns={AdminTableColumn} totalElements={listAdmin?.totalElements || 0} handlePageChange={handleFilterChange}/>
       </div>
     </Card>
   );

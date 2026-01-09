@@ -3,10 +3,11 @@ import { BASE_URL, FilterOptions } from "../../constant";
 import { ProblemResponse } from "./type";
 
 export async function getListActiveProblem(
-  filter: FilterOptions
+  filter: FilterOptions,
+  adminId: string
 ): Promise<ProblemResponse> {
   const res = await axios.post("/api/get-list", {
-    link: `${BASE_URL}/problems?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
+    link: `${BASE_URL}/problems/class/${adminId}?page=${filter?.pageNumber}&pageSize=${filter?.pageSize}`,
   });
 
   if (!res.data.content) return {} as ProblemResponse;

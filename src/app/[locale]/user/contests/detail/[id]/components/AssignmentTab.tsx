@@ -4,12 +4,11 @@ import { useGetListActiveProblem } from "@/hook/problem/useGetListActiveProblem"
 import { Card } from "antd";
 import "../../../style.scss";
 
-export default function AssignmentTab() {
+export default function AssignmentTab({ adminId }: { adminId: string }) {
 
+  const { listActiveProblem, isLoading } = useGetListActiveProblem(adminId);
 
-  const { listActiveProblem, isLoading } = useGetListActiveProblem();
-
-  if (isLoading || !listActiveProblem) return <RouteLoading />;
+  if (isLoading || !listActiveProblem) return <RouteLoading message="Đang tải bài tập..."/>;
 
   return (  
     <Card>

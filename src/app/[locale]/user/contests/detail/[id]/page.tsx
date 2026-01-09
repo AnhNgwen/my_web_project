@@ -24,7 +24,7 @@ export default function ContestDetail({ params }: { params: { id: string } }) {
         className="custom__search__tabs"
       >
         <Tabs.TabPane key="1" tab="Bài tập">
-          <AssignmentTab />
+          <AssignmentTab adminId={id} />
         </Tabs.TabPane>
         <Tabs.TabPane key="2" tab="Bài nộp">
           <SubmittedTab />

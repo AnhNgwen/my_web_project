@@ -4,13 +4,13 @@ import ConfirmModal from "@/components/form/ConfirmModal";
 import CustomUploadFile from "@/components/form/CustomUploadFile";
 import FormHeader from "@/components/form/FormHeader";
 import ProblemStatement from "@/components/ProblemStatement";
+import RouteLoading from "@/components/shared/RouteLoading";
 import { useProblemDetail } from "@/hook/problem/useProblemDetail";
 import { useSubmitProblem } from "@/hook/problem/useSubmitProblem";
-import useGetListTestCase from "@/hook/test-case/useGetListTestCase";
 import { Card, Divider, Tag, Typography, UploadFile } from "antd";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { CodeEditor } from "./components/CodeEditor";
 import SubmissionTable from "./components/SubmissionTable";
 
@@ -60,13 +60,7 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const { problemDetail } = useProblemDetail(id);
-  const { listTestCase } = useGetListTestCase(id);
   const { submitProblemAsync, isLoading } = useSubmitProblem();
-
-  const sampleTestCase = useMemo(
-    () => listTestCase?.content.find((item) => item.sample === true),
-    [listTestCase]
-  );
 
   const t = useTranslations("sidebar");
   const router = useRouter();
@@ -110,6 +104,8 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
       link: "#",
     },
   ];
+  
+  if(!problemDetail) return <RouteLoading message="Đang tải dữ liệu..." />;
 
   return (
     <>
@@ -140,13 +136,13 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
 
           {/* Input */}
           <Title level={5}>Input</Title>
-          <pre>{sampleTestCase?.input}</pre>
+          <pre>{problemDetail.sampleInput}</pre>
 
           {/* Output */}
           <Title level={5} className="mt-4">
             Output
           </Title>
-          <span>{sampleTestCase?.expectedOutput}</span>
+          <span>{problemDetail.sampleOutput}</span>
 
           <Divider />
 
@@ -155,11 +151,11 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Input</div>
-              <pre className="whitespace-pre-wrap">{sampleTestCase?.input}</pre>
+              <pre className="whitespace-pre-wrap">{problemDetail.sampleInput}</pre>
             </div>
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Output</div>
-              <pre>{sampleTestCase?.expectedOutput}</pre>
+              <pre>{problemDetail.sampleOutput}</pre>
             </div>
           </div>
 

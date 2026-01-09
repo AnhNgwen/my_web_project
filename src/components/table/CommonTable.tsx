@@ -1,9 +1,10 @@
 "use client";
 import { FilterOptions } from "@/services/rest/constant";
-import { SearchOutlined } from "@ant-design/icons";
-import { Input, Table } from "antd";
+import { ArrowLeftOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Input, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { MotionRow } from "./MotionRow";
 import { tableContainerVariants } from "./motion";
@@ -38,6 +39,7 @@ export default function CommonTable<T extends object>({
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(defaultPageSize);
   const [searchValue, setSearchValue] = useState<string>("");
+  const router = useRouter();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -49,16 +51,29 @@ export default function CommonTable<T extends object>({
 
   return (
     <div className="bg-white p-4 rounded-lg flex flex-col gap-3">
-      <div className="flex justify-end gap-2">
-        <Input
-          value={searchValue}
-          onChange={handleSearchChange}
-          prefix={<SearchOutlined className="text-gray-400" />}
-          className="text-base w-[220px]"
-          placeholder={searchPlaceholder}
-        />
-        {headerActions}
-      </div>
+      <div className="flex items-center justify-between">
+    {/* LEFT: Back button */}
+    <Button
+      icon={<ArrowLeftOutlined />}
+      type="text"
+      className="flex items-center gap-1 text-gray-600 hover:text-blue-600"
+      onClick={() => router.back()}
+    >
+      Quay lại
+    </Button>
+
+    {/* RIGHT: Search + actions */}
+    <div className="flex gap-2">
+      <Input
+        value={searchValue}
+        onChange={handleSearchChange}
+        prefix={<SearchOutlined className="text-gray-400" />}
+        className="text-base w-[220px]"
+        placeholder={searchPlaceholder}
+      />
+      {headerActions}
+    </div>
+  </div>
 
       <AnimatePresence mode="wait">
         <motion.div
