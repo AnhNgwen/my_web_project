@@ -1,4 +1,5 @@
 import RHFInput from "@/components/form/RHFInput";
+import RHFTextArea from "@/components/form/RHFTextArea";
 import CancelButton from "@/components/shared/Button/FormHeader/CancelButton";
 import DangerButton from "@/components/shared/Button/FormHeader/DangerButton";
 import { Card, Col, Row } from "antd";
@@ -86,7 +87,7 @@ export default function TestcaseManager() {
           <Card size="small" className="space-y-2">
             <Row gutter={[16, 16]}>
               <Col xs={24} md={12}>
-                <RHFInput
+                <RHFTextArea
                   name={`testCases.${i}.input`}
                   placeholder="Enter your test case input"
                   label="Test Case Input"
@@ -94,7 +95,7 @@ export default function TestcaseManager() {
               </Col>
 
               <Col xs={24} md={12}>
-                <RHFInput
+                <RHFTextArea
                   name={`testCases.${i}.expectedOutput`}
                   placeholder="Enter your test case output"
                   label="Test Case  Output"

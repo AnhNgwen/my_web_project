@@ -136,13 +136,19 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
 
           {/* Input */}
           <Title level={5}>Input</Title>
-          <pre>{problemDetail.sampleInput}</pre>
+          <div
+            dangerouslySetInnerHTML={{ __html: problemDetail.sampleInput || '' }}
+            className="p-2 sm:p-4 product-content-html"
+          />
 
           {/* Output */}
           <Title level={5} className="mt-4">
             Output
           </Title>
-          <span>{problemDetail.sampleOutput}</span>
+          <div
+            dangerouslySetInnerHTML={{ __html: problemDetail.sampleOutput || '' }}
+            className="p-2 sm:p-4 product-content-html"
+          />
 
           <Divider />
 
@@ -151,11 +157,17 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Input</div>
-              <pre className="whitespace-pre-wrap">{problemDetail.sampleInput}</pre>
+              <div
+                dangerouslySetInnerHTML={{ __html: problemDetail.sampleInput || '' }}
+                className="p-2 sm:p-4 product-content-html"
+              />
             </div>
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Output</div>
-              <pre>{problemDetail.sampleOutput}</pre>
+              <div
+                dangerouslySetInnerHTML={{ __html: problemDetail.sampleOutput || '' }}
+                className="p-2 sm:p-4 product-content-html"
+              />
             </div>
           </div>
 

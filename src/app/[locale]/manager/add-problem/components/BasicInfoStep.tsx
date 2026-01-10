@@ -1,6 +1,6 @@
+import { difficultyOptions } from "@/app/[locale]/constants";
 import RHFInput from "@/components/form/RHFInput";
 import RHFSelect from "@/components/form/RHFSelect";
-import { difficultyOptions } from "@/data/mock";
 import { Col, Row } from "antd";
 import { motion } from "framer-motion";
 

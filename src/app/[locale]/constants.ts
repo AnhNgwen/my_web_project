@@ -6,3 +6,8 @@ export const difficultyConfig: Record<
   MEDIUM: { color: "gold", label: "Trung bình" },
   HARD: { color: "red", label: "Khó" },
 };
+export const difficultyOptions = [
+  { value: "EASY", label: "Easy" },
+  { value: "MEDIUM", label: "Medium" },
+  { value: "HARD", label: "Hard" },
+];

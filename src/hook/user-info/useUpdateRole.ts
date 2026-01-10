@@ -15,6 +15,7 @@ export function useUpdateUserRole() {
         queryKey: ["USER_DETAIL"],
         exact: false,
       });
+      
     },
   });
   return {

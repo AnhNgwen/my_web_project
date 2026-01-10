@@ -73,15 +73,33 @@ export const cardVariants: Variants = {
 };
 
 
-export default function ProblemDetailPage({ testCases, data }: Props) {
+export default function   ProblemDetailPage({ testCases, data }: Props) {
   const sampleColumns = [
-    { title: "Input", dataIndex: "input", key: "input" },
-    { title: "Output", dataIndex: "output", key: "output" },
+    { title: "Input", dataIndex: "input", key: "input",
+      render: (text: string) => (
+        <div className="max-h-[200px] overflow-y-auto">
+          <pre>{text}</pre>
+        </div>
+      ),
+     },
+    { title: "Output", dataIndex: "output", key: "output", render: (text: string) => (
+      <div className="max-h-[200px] overflow-y-auto">
+        <pre>{text}</pre>
+      </div>
+    ) },
   ];
 
   const testCaseColumns = [
-    { title: "Input", dataIndex: "input", key: "input" },
-    { title: "Output", dataIndex: "expectedOutput", key: "output" },
+    { title: "Input", dataIndex: "input", key: "input",  render: (text: string) => (
+      <div className="max-h-[200px] overflow-y-auto">
+        <pre>{text}</pre>
+      </div>
+    ) },
+    { title: "Output", dataIndex: "expectedOutput", key: "output",  render: (text: string) => (
+      <div className="max-h-[200px] overflow-y-auto">
+        <pre>{text}</pre>
+      </div>
+    ) },
     { title: "Score", dataIndex: "score", key: "score" },
   ];
 
