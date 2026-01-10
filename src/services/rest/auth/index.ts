@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BASE_URL } from "../constant";
 
 export async function registerAccount(payload: RegisterTypes) {
@@ -25,7 +25,7 @@ export async function loginAccount(payload: LoginTypes) {
     return res.data;
   } catch (error) {
     console.error("Login API error:", error);
-    return null;
+    return (error as AxiosError).response?.status;
   }
 }
 

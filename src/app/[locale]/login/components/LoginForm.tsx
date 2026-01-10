@@ -64,26 +64,20 @@ export default function LoginForm({
     const { remember, ...payload } = values;
     const res = await loginAccount(payload);
 
-    if (!res) {
-      message.error("Login failed");
-      setLoading(false);
-      return;
-    }
+    if(typeof res === "number" && res !== 200){
+      if (res === 401) {
+        message.error("Invalid username or password");
+        setLoading(false);
+        return;
+      }
 
-    if (res.status === 401) {
-      message.error("Invalid username or password");
+      message.error("Login failed");
       setLoading(false);
       return;
     }
 
     localStorage.setItem("userName", res.username);
     localStorage.setItem("role", res.role);
-
-    if (res.status && res.status !== 200) {
-      message.error(res.backend?.message ?? `Login failed (${res.status})`);
-      setLoading(false);
-      return;
-    }
 
     // success
     message.success("Login success");
@@ -111,12 +105,11 @@ export default function LoginForm({
       >
         <motion.div className="logo" variants={itemVariants}>
           <Image
-            src="/images/logo1.png"
+            src="/images/logo2.png"
             alt={"logo"}
-            width={120}
-            height={60}
+            width={140}
+            height={70}
             className="logo-image"
-            priority
           />
         </motion.div>
         <motion.div variants={itemVariants}>

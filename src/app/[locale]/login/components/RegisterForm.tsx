@@ -1,7 +1,7 @@
 "use client";
 
 import useLoadingStore from "@/app/store/loadingStore";
-import { registerAccount } from "@/services/rest/auth";
+import { useRegisterAccount } from "@/hook/user-info/useRegisterAccount";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -56,12 +56,13 @@ export default function RegisterForm({ onBackToLogin }: Props) {
   const t = useTranslations("login");
   const router = useRouter();
   const startLoading = useLoadingStore((state) => state.startLoading);
+  const { registerAccountAsync } = useRegisterAccount();
 
   const handleSubmit = async (values: RegisterFormData) => {
     setLoading(true);
     const { agree, ...payload } = values;
 
-    const res = await registerAccount(payload);
+    const res = await registerAccountAsync({payload});
 
     if (!res) {
       message.error("Have an error while registering account");

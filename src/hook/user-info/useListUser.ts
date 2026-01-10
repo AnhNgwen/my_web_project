@@ -4,12 +4,16 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useListUser(filter: FilterOptions) {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["USER_LIST", filter.pageNumber, filter.pageSize],
+    queryKey: ["USER_LIST", filter?.pageNumber, filter?.pageSize],
     queryFn: async () => {
       const result = await getListUser(filter);
       return result;
     },
     enabled: true,
+    staleTime: 2000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+    retry: 1,
   });
   return { data, isLoading, isError, error };
 }

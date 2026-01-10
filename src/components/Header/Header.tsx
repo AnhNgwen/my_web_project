@@ -137,7 +137,7 @@ export default function Header({ site }: HeaderProps) {
         {/* LEFT LOGO */}
         <div className="flex items-center gap-3 md:gap-2">
           <Image
-            src="/images/hust.jpg"
+            src="/images/hust1.jpg"
             alt="Logo"
             width={100}
             height={20}
