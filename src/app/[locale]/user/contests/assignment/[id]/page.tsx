@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { CodeEditor } from "./components/CodeEditor";
 import SubmissionTable from "./components/SubmissionTable";
 
-const { Title } = Typography;
+const { Title, Paragraph } = Typography;
 
 const CODE_TEMPLATES = {
   cpp: `#include <bits/stdc++.h>
@@ -136,19 +136,17 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
 
           {/* Input */}
           <Title level={5}>Input</Title>
-          <div
-            dangerouslySetInnerHTML={{ __html: problemDetail.sampleInput || '' }}
-            className="p-2 sm:p-4 product-content-html"
-          />
+          <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+            {problemDetail.sampleInput}
+          </pre>
 
           {/* Output */}
           <Title level={5} className="mt-4">
             Output
           </Title>
-          <div
-            dangerouslySetInnerHTML={{ __html: problemDetail.sampleOutput || '' }}
-            className="p-2 sm:p-4 product-content-html"
-          />
+          <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+            {problemDetail.sampleOutput}
+          </pre>
 
           <Divider />
 
@@ -157,17 +155,15 @@ export default function AssignmentPage({ params }: { params: { id: string } }) {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Input</div>
-              <div
-                dangerouslySetInnerHTML={{ __html: problemDetail.sampleInput || '' }}
-                className="p-2 sm:p-4 product-content-html"
-              />
+              <pre>
+            {problemDetail.sampleInput}
+          </pre>  
             </div>
             <div className="bg-gray-900 text-gray-100 rounded-xl p-4 text-sm">
               <div className="font-semibold mb-2">Output</div>
-              <div
-                dangerouslySetInnerHTML={{ __html: problemDetail.sampleOutput || '' }}
-                className="p-2 sm:p-4 product-content-html"
-              />
+              <pre>
+            {problemDetail.sampleOutput}
+          </pre>  
             </div>
           </div>
 
